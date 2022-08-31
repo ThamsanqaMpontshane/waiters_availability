@@ -1,0 +1,55 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DAYS</title>
+    <link rel="stylesheet" href="/css/tailwind.css" />
+  </head>
+  <body>
+    <div class="container h-screen w-screen flex flex-col items-center pt-24">
+        <h1 class="text-7xl text-gray-400 text-center my-3 font-graduate  uppercase">Select Days You Are Available</h1>
+        <form action="" method="POST" class="w-3/5 flex flex-col">
+            <div class="flex flex-row min-w-full h-12  pt-4 border-b-2 border-red-800">
+            <form action="">
+            <div class="w-1/2">
+                <input type="checkbox" name="days" value="monday" id="monday" />
+                <label for="monday">Monday</label>
+            </div>
+            <div class="w-1/2">
+                <input type="checkbox" name="days" value="tuesday" id="tuesday" />
+                <label for="tuesday">Tuesday</label>
+            </div>
+            <div class="w-1/2">
+                <input type="checkbox" name="days" value="wednesday" id="wednesday" />
+                <label for="wednesday">Wednesday</label>
+            </div>
+            <div class="w-1/2">
+                <input type="checkbox" name="days" value="thursday" id="thursday" />
+                <label for="thursday">Thursday</label>
+            </div>
+            <div class="w-1/2">
+                <input type="checkbox" name="days" value="friday" id="friday" />
+                <label for="friday">Friday</label>
+            </div>
+            <div class="w-1/2">
+                <input type="checkbox" name="days" value="saturday" id="saturday" />
+                <label for="saturday">Saturday</label>
+            </div>
+            <div class="w-1/2">
+                <input type="checkbox" name="days" value="sunday" id="sunday" />
+                <label for="sunday">Sunday</label>
+            </div>
+            </div>
+           <!-- minimalist buttton -->
+              <div class="flex flex-row justify-end pt-3 gap-x-3">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                     Submit
+                </button>
+                <button type="reset" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                     Reset
+                </button>
+        </form>
+    </div>
+  </body>
+</html>
