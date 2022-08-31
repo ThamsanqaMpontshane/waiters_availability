@@ -13,12 +13,6 @@ function waiterAvailability(db){
     async function getAllWaiters(){
         return await db.any(`SELECT * FROM waiter`);
     }
-    // async function selectWorkDays(name, day){
-    //     const upperName = name.toUpperCase();
-    //     const selectId = await db.one(`SELECT id FROM waiter WHERE name = '${upperName}'`);
-    //     // use 
-    // }
-
     const getWaiter = async name => {
         const upperName = name.toUpperCase();
         return await db.oneOrNone('select name from waiter where name = $1',[upperName]);

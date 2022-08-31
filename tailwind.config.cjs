@@ -16,20 +16,14 @@ module.exports = {
       padding: "1rem"
     },
     screens: {
-      'sm': '320px',
+      'phone': {'min': '320px', 'max': '767px'},
       // => @media (min-width: 320px) { ... }
 
-      'md': '768px',
+      'tablet': {'min': '768px', 'max': '1023px'},
       // => @media (min-width: 768px) { ... }
 
-      'lg': '1024px',
-      // => @media (min-width: 1024px) { ... }
-
-      'xl': '1280px',
+      'laptop': {'min': '1280px', 'max': '1535px'},
       // => @media (min-width: 1280px) { ... }
-
-      '2xl': '1536px',
-      // => @media (min-width: 1536px) { ... }
   },
   plugins: [],
 }
