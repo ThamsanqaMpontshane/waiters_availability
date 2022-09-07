@@ -24,7 +24,16 @@ module.exports = {
 
       'laptop': {'min': '1280px', 'max': '1535px'},
       // => @media (min-width: 1280px) { ... }
+      'sm': '640px',
+      // => @media (min-width: 640px) { ... }
+
+      'md': '768px',
+      // => @media (min-width: 768px) { ... }
+
+      'lg': '1024px',
   },
-  plugins: [],
+  plugins: [
+    require('flowbite/plugin')
+  ],
 }
 }
