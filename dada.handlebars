@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="/css/tailwind.css" />
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
   </head>
-  <body class="h-screen w-screen">
-    <nav class="bg-white border-gray-200 px-2 phone:px-4 py-2.5 rounded dark:bg-gray-900 phone:w-full">
+  <body>
+    <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
         <div class="container flex flex-wrap justify-between items-center mx-auto w-screen">
           <a href="/" class="flex items-center">
               <img src="/thelogo.png" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
@@ -33,56 +33,50 @@
           </div>
         </div>
       </nav>
-      <div class="container w-screen h-4/5 flex flex-col items-center tablet:mt-8 phone:mt-14">
-        <div class="h-40 w-3/4 phone:text-4xl">
-          <h1 class="laptop:text-7xl text-gray-400 text-center my-3 font-graduate uppercase">Select Days You Are Available</h1>
-        </div>
-        <div class="laptop:h-48 laptop:w-3/4 flex justify-center items-center tablet:mt-8 tablet:w-full phone:h-96 phone:w-48">
-          <form action="" method="POST" class="laptop:w-4/5 laptop:h-14 tablet:h-44 phone:h-96 phone:w-52 phone:pt-14">
-            <!-- !checkboxes -->
-            <div class="w-full h-5 grid laptop:grid-cols-7 tablet:grid-cols-1 tablet:gap-y-3">
-              <div class="col-span-1 flex flex-row justify-center gap-x-2 items-baseline">
+    <div class="container h-screen w-screen flex flex-col items-center pt-24">
+        <h1 class="text-7xl text-gray-400 text-center my-3 font-graduate uppercase phone:text-6xl">Select Days You Are Available</h1>
+        <form action="" method="POST" class="w-4/5 laptop:gap-x-3 flex flex-col phone:w-96 phone:mt-3 phone:justify-center tablet:w-4/5 tablet:gap-x-2">
+            <div class="flex flex-row laptop:gap-x-16 laptop:pl-6 laptop:mt-4 min-w-full h-12 pt-4 border-b-2 border-red-800 phone:grid phone:grid-cols-2 phone:h-36 ">
+            <form action="">
+            <div class="">
                 <input type="checkbox" name="days" value="monday" id="monday" {{Monday}}/>
-                <label for="monday" class="tablet:text-3xl phone:text-2xl">Monday</label>
+                <label for="monday">Monday</label>
             </div>
-            <div class="col-span-1 flex flex-row justify-center gap-x-2 items-baseline">
+            <div class="">
                 <input type="checkbox" name="days" value="tuesday" id="tuesday" {{Tuesday}}/>
-                <label for="tuesday" class="tablet:text-3xl phone:text-2xl">Tuesday</label>
+                <label for="tuesday">Tuesday</label>
             </div>
-            <div class="col-span-1 flex flex-row justify-center gap-x-2 items-baseline">
+            <div class="">
                 <input type="checkbox" name="days" value="wednesday" id="wednesday" {{Wednesday}}/>
-                <label for="wednesday" class="tablet:text-3xl phone:text-2xl">Wednesday</label>
+                <label for="wednesday">Wednesday</label>
             </div>
-            <div class="col-span- flex flex-row justify-center gap-x-2 items-baseline">
+            <div class="">
                 <input type="checkbox" name="days" value="thursday" id="thursday" {{Thursday}}/>
-                <label for="thursday" class="tablet:text-3xl phone:text-2xl">Thursday</label>
+                <label for="thursday">Thursday</label>
             </div>
-            <div class="col-spa flex flex-row justify-center gap-x-2 items-baseline">
+            <div class="">
                 <input type="checkbox" name="days" value="friday" id="friday" {{Friday}}/>
-                <label for="friday" class="tablet:text-3xl phone:text-2xl">Friday</label>
-            </div>
-            <div class="col-span flex flex-row justify-center gap-x-2 items-baseline">
+                <label for="friday">Friday</label>
+            </div>  
+            <div class="">
                 <input type="checkbox" name="days" value="saturday" id="saturday" {{Saturday}}/>
-                <label for="saturday" class="tablet:text-3xl phone:text-2xl">Saturday</label>
+                <label for="saturday">Saturday</label>
             </div>
-            <div class="col-span-1 flex flex-row justify-center gap-x-2 items-baseline">
+            <div class="">
                 <input type="checkbox" name="days" value="sunday" id="sunday" {{Sunday}}/>
-                <label for="sunday" class="tablet:text-3xl phone:text-2xl">Sunday</label>
+                <label for="sunday">Sunday</label>
             </div>
             </div>
-            <hr class="border-2 w-4/4 border-red-600 laptop:mt-2 tablet:mt-80 phone:mt-56">
-            <!-- !buttons -->
-            <div class=" w-full h-11 flex py-2 gap-x-2 tablet:justify-center laptop:justify-end pr-2 laptop:pt-1 tablet:mt-2 tablet:gap-x-8 phone:justify-center">
-              <button type="submit" class="bg-white text-center px-2  border border-black rounded-md tablet:h-9 tablet:w-24">
-                Submit
-             </button>
-              <button type="reset" class="bg-gray-300 text-center px-2 border border-black rounded-md text-black font-semibold tablet:h-9 tablet:w-24">
-                Reset
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
+           <!-- minimalist buttton -->
+              <div class="flex flex-row justify-end pt-3 gap-x-3 phone:mt-3">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                     Submit
+                </button>
+                <button type="reset" class="bg-red-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                     Reset
+                </button>
+        </form>
+    </div>
     <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
   </body>
 </html>

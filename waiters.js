@@ -25,6 +25,7 @@ function waiterAvailability(db){
         return await db.none(`INSERT INTO theSchedule (waiter_id, day_id) VALUES ('${waiterId}', '${days}')`);
     }
     // ?get waiter availability
+    // !important
     async function getWaiterAvailability(waiterId){
         const waiterAvailability = await db.manyOrNone('select waiter_id, day_id from theSchedule where waiter_id = $1',[waiterId]);
         const waiterDays = [];
@@ -33,29 +34,29 @@ function waiterAvailability(db){
             const getDays = await db.manyOrNone('select name from theDays where id = $1',[day]);
             waiterDays.push(getDays[0].name);
         }
-        // console.log(waiterDays);
         return waiterDays;
     }
     // !get all waiters availability
     async function getAllWaitersAvailability(){
         const allWaitersAvailability = await db.manyOrNone('select * from theSchedule');
-        // console.log(allWaitersAvailability);
         return allWaitersAvailability;
     }
-    // create table theSchedule2 (
-    //     id serial primary key,
-    //     waiter_name varchar(255) not null,
-    //     day_name varchar(255) not null,
-    //     FOREIGN KEY (waiter_name) REFERENCES waiter (name),
-    //     FOREIGN KEY (day_name) REFERENCES theDays (name),
-    //     UNIQUE (waiter_name, day_name)
-    // );
-    async function addWaiterAvailability2(waiterName, days){
-        const upperName = waiterName.toUpperCase();
-        return await db.none(`INSERT INTO theSchedule2 (waiter_name, day_name) VALUES ('${upperName}', '${days}')`);
+    // get individual waiter days eg monday, tuesday
+    async function getIndividualWaiterDays(waiterId){
+        const waiterDays = await db.manyOrNone('select day_id from theSchedule where waiter_id = $1',[waiterId]);
+        const waiterDaysName = [];
+        for (let i = 0; i < waiterDays.length; i++) {
+            const day = waiterDays[i].day_id;
+            const getDays = await db.manyOrNone('select name from theDays where id = $1',[day]);
+            waiterDaysName.push(getDays[0].name);
+        }
+        return waiterDaysName;
     }
     
-       
+    // reset the schedule
+    async function reset(){
+        return await db.manyOrNone('delete from theSchedule');
+    }
         return {
             addWaiter,
             getWaiter,
@@ -63,7 +64,8 @@ function waiterAvailability(db){
             addWaiterAvailability,
             getWaiterAvailability,
             getAllWaitersAvailability,
-            addWaiterAvailability2
+            reset,
+            getIndividualWaiterDays
         }
     }
 

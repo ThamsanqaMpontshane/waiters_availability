@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
     <link rel="stylesheet" href="/css/tailwind.css" />
+      <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
 </head>
 <body>
     <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
@@ -36,93 +37,110 @@
 <div class="container mx-auto">
     <!-- reset button -->
     <div class="container flex flex-row justify-end mb-2 mt-5">
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" id="reset">Reset</button>
+    <a href="/reset">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" id="reset" type="button">Reset</button>
+    </a>
     </div>
 <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" class="py-3 px-6" style="background-color:{{MondayColor}}">
                     Monday
                 </th>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" class="py-3 px-6" style="background-color:{{TuesdayColor}}">
                     Tuesday
                 </th>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" class="py-3 px-6" style="background-color:{{WednesdayColor}}">
                     Wednesday
                 </th>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" class="py-3 px-6" style="background-color:{{ThursdayColor}}">
                     Thursday
                 </th>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" class="py-3 px-6" style="background-color:{{FridayColor}}">
                     Friday
                 </th>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" class="py-3 px-6" style="background-color:{{SaturdayColor}}">
                     Saturday
                 </th>
-                <th scope="col" class="py-3 px-6">
+                <th scope="col" class="py-3 px-6" style="background-color:{{SundayColor}}">
                     Sunday
                 </th>
             </tr>
         </thead>
         <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
             <tr>
-                {{#each Monday}}
+               
                 <td class="py-3 px-6">
+                     {{#each Monday}}
                     <div class="flex items-center">
                         <span>{{this}}</span>
                     </div>
+                     {{/each}}
                 </td>
-                {{/each}}
-                {{#each Tuesday}}
                 <td class="py-3 px-6">
+                    {{#each Tuesday}}
                     <div class="flex items-center">
                         <span>{{this}}</span>
                     </div>
+                     {{/each}}
                 </td>
-                {{/each}}
-                {{#each Wednesday}}
                 <td class="py-3 px-6">
+                    {{#each Wednesday}}
                     <div class="flex items-center">
                         <span>{{this}}</span>
                     </div>
+                     {{/each}}
                 </td>
-                {{/each}}
-                {{#each Thursday}}
                 <td class="py-3 px-6">
+                    {{#each Thursday}}
                     <div class="flex items-center">
                         <span>{{this}}</span>
                     </div>
+                     {{/each}}
                 </td>
-                {{/each}}
-                {{#each Friday}}
                 <td class="py-3 px-6">
+                    {{#each Friday}}
                     <div class="flex items-center">
                         <span>{{this}}</span>
                     </div>
+                     {{/each}}
                 </td>
-                {{/each}}
-                {{#each Saturday}}
                 <td class="py-3 px-6">
+                    {{#each Saturday}}
                     <div class="flex items-center">
                         <span>{{this}}</span>
                     </div>
+                     {{/each}}
                 </td>
-                {{/each}}
-                {{#each Sunday}}
                 <td class="py-3 px-6">
+                    {{#each Sunday}}
                     <div class="flex items-center">
                         <span>{{this}}</span>
                     </div>
+                     {{/each}}
                 </td>
-                {{/each}}
             </tr>
         </tbody>
     </table>
 </div>
-
-
+<!-- !key -->
+<div class="w-full h-12 flex fex-row justify-end mt-3">
+    <!-- key for enough waiters  -->
+    <div class="flex flex-col w-48 h-12 gap-y-3 phone:pl-3">
+      <div class="flex flex-row items-baseline gap-x-3">
+        <div class="h-4 w-4 bg-orange-400 rounded-full"></div>
+        <div class="h-5 text-xl">Enough Waiters</div>
+      </div>
+        <div class="flex flex-row items-baseline gap-x-3">
+            <div class="h-4 w-4 bg-red-600 rounded-full"></div>
+            <div class="h-5 text-xl">Overbooked</div>
+        </div>
+      </div>
+      </div>
+    </div>
 </div>
-
+</div>
+      <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
 </body>
 </html>

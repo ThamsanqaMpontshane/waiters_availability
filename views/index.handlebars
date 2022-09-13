@@ -39,12 +39,10 @@
         </div>
       </nav>
     <div class="container h-screen box-border bg-white flex flex-col items-center">
-     
-
-      <div class="h-16 w-5/12 tablet:w-10/12 tablet:mt-44 phone:w-72 phone:mt-36 phone:fixed">
-        <h1 class="laptop:text-6xl phone:text-4xl tablet:text-7xl text-gray-400 text-center my-3 font-graduate pt-36 tracking-wider phone:tracking-tight ">WAITERS AVAILABILITY</h1>
+      <div class="h-16 w-5/12 tablet:w-10/12 tablet:mt-44 phone:w-72 phone:mt-4">
+        <h1 class="laptop:text-6xl phone:text-4xl tablet:text-7xl text-gray-400 text-center my-3 font-graduate pt-36  tracking-wider phone:tracking-tight ">WAITERS AVAILABILITY</h1>
       </div>
-        <form class="bg-white mt-60 tablet:w-5/6 tablet:mt-80 phone:w-80 phone:fixed phone:mt-96" action="/waiters" method="post">
+        <form class="bg-white mt-60 tablet:w-5/6 tablet:mt-80 phone:w-80 phone:mt-44" action="/waiters" method="post">
             <div class="flex items-center border-b border-red-800 py-2 gap-x-1 phone:">
               <input class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Enter Your Name" aria-label="Full name" name="name" required>
               <button class="flex-shrink-0 bg-red-700 hover:bg-gray-500 border-red-700 hover:border-gray-500 text-sm border-4 text-white py-1 px-2 rounded" type="button">
@@ -55,7 +53,18 @@
               </button>
             </div>
           </form> 
+          <!-- error message -->
+          <div class="text-red-500 text-center mt-2 font-bold">
+            {{#if messages.error}}
+            <p class="error">{{messages.error}}</p>
+            {{/if}}
+          </div>
+          <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 laptop:mt-10 phone:mt-16 tablet:mt-10" role="alert">
+            <p class="font-bold">Note</p>
+            <p>Only waiters can login to this page</p>
+          </div>
       </div>
       <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
+      <script src="setTimeout.js"></script>
   </body>
 </html>
