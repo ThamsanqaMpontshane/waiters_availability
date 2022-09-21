@@ -17,8 +17,9 @@ function waiterAvailability(db){
     }
     //?function to get all waiters
     async function getAllWaiters(){
-        const allWaiters = await db.manyOrNone('select * from waiter');
-        return allWaiters;
+        const allWaiters = await db.manyOrNone('select name from waiter');
+        const waiterNames = allWaiters.map(waiter => waiter.name);
+        return waiterNames;
     }
     // ?add waiter availability for that day
     async function addWaiterAvailability(waiterId, days){
@@ -41,7 +42,6 @@ function waiterAvailability(db){
         const allWaitersAvailability = await db.manyOrNone('select * from theSchedule');
         return allWaitersAvailability;
     }
-    // get individual waiter days eg monday, tuesday
     async function getIndividualWaiterDays(waiterId){
         const waiterDays = await db.manyOrNone('select day_id from theSchedule where waiter_id = $1',[waiterId]);
         const waiterDaysName = [];
@@ -52,10 +52,42 @@ function waiterAvailability(db){
         }
         return waiterDaysName;
     }
-    
-    // reset the schedule
     async function reset(){
-        return await db.manyOrNone('delete from theSchedule');
+        await db.none('delete from theSchedule');
+        await db.none('delete from waiter');
+    }
+    async function addDays(waiterId, days){
+        // ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+        // don not use map
+        for (let i = 0; i < days.length; i++) {
+            const day = days[i];
+            const getDayId = await db.manyOrNone('select id from theDays where name = $1',[day]);
+            // return
+            await db.none(`INSERT INTO theSchedule (waiter_id, day_id) VALUES ('${waiterId}', '${getDayId[0].id}')`);
+        }
+    }
+    
+    // function to reset the days of individual user
+    async function resetDays(waiterId){
+        return await db.none('delete from theSchedule where waiter_id = $1',[waiterId]);
+    }
+    // function to get all the days
+    async function getDays(waiterId){
+        const waiterDays = await db.manyOrNone('select day_id from theSchedule where waiter_id = $1',[waiterId]);
+        const waiterDaysName = [];
+        for (let i = 0; i < waiterDays.length; i++) {
+            const day = waiterDays[i].day_id;
+            const getDays = await db.manyOrNone('select name from theDays where id = $1',[day]);
+            waiterDaysName.push(getDays[0].name);
+        }
+        
+        return waiterDaysName;
+        
+    }
+    // get days id
+    async function getDaysId(day){
+        const dayId = await db.manyOrNone('select id from theDays where name = $1',[day]);
+        return dayId[0].id;
     }
         return {
             addWaiter,
@@ -65,7 +97,12 @@ function waiterAvailability(db){
             getWaiterAvailability,
             getAllWaitersAvailability,
             reset,
-            getIndividualWaiterDays
+            getIndividualWaiterDays,
+            addDays,
+            resetDays,
+            getDays,
+            getDaysId,
+
         }
     }
 

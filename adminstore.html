@@ -7,14 +7,14 @@
     <title>Admin</title>
     <link rel="stylesheet" href="/css/tailwind.css" />
       <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
-      <link href="https://unpkg.com/intro.js/minified/introjs.min.css" rel="stylesheet"> 
+      <link rel="stylesheet" href="sweetalert2.min.css">
 </head>
 <body>
     <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
         <div class="container flex flex-wrap justify-between items-center mx-auto w-screen">
           <a href="/" class="flex items-center">
               <img src="/thelogo.png" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
-              <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white" data-hint=" Click Me To Navigate To Home/Login Page" data-hint-position="top-middle" >THE BOSS EAT</span>
+              <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">THE BOSS EAT</span>
           </a>
           <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
             <span class="sr-only">Open main menu</span>
@@ -39,15 +39,14 @@
     <!-- reset button -->
     <div class="container flex flex-row justify-end mb-2 mt-5">
     <a href="/reset">
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" id="reset" type="button" data-step="4" data-title="RESET BUTTON" data-intro="This Is The Reset Button . Press It To Reset The Table">Reset</button>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" id="reset" type="button">Reset</button>
     </a>
     </div>
 <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400" data-step="1" data-title="WAITERS AVAILABILITY TABLE" data-intro="This Is Where You Can See Your Waiters And The Days They Are Working">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-                <th class="px-4 py-3 text-2xl font-babas" data-step="2" data-title="NAME" data-intro="This Is Where You See Your Waiters">Name</th>
-                <div data-step="3" data-title="DAYS" data-hint="This Is Where You Can See Which Waiters Are Assigned To Which Days" data-hint-position="top-middle">
+                <th class="px-4 py-3 text-2xl font-babas">Name</th>
                 <th scope="col" class="py-3 px-6" style="background-color:{{MondayColor}}">
                     Monday
                 </th>
@@ -69,71 +68,79 @@
                 <th scope="col" class="py-3 px-6" style="background-color:{{SundayColor}}">
                     Sunday
                 </th>
-            </div>
             </tr>
         </thead>
         <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-            
-            {{#each waiterList3}}
             <tr>
                 <!-- td with checkbox and name -->
-                <td class="px-4 py-3" >
+                <td class="px-4 py-3">
                     <div class="flex items-center">
                         <div class="flex items-center gap-x-1">
                             <!-- checkbox -->
-                            <!-- <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="checkbox" name="checkbox" value="checkbox">
-                            <div class="text-sm"> -->
-                                <a href="/waiters/{{this.waiterName}}" class="underline hover:text-black"
-                                    <div class="font-medium text-gray-900 dark:text-gray-100 " data-hint="Click On Name To Update The Waiters Days" data-hint-position="left">{{this.waiterName}}</div>
-                                </a>
+                            <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="checkbox" name="checkbox" value="checkbox">
+                            <div class="text-sm">
+                                <div class="font-medium text-gray-900 dark:text-gray-100">John Doe</div>
                             </div>
                         </div>
                     </div>
                 </td>
                 <td class="py-3 px-6">
-                    <div class="flex items-center gap-x-1">
-                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="checkbox" name="checkbox" value="monday" {{this.MondayChecked}}>
+                     {{#each Monday}}
+                    <div class="flex items-center">
+                        <span>{{this}}</span>
                     </div>
+                     {{/each}}
                 </td>
                 <td class="py-3 px-6">
-                    <div class="flex items-center gap-x-1">
-                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="checkbox" name="checkbox" value="tuesday" {{this.TuesdayChecked}}>
+                    {{#each Tuesday}}
+                    <div class="flex items-center">
+                        <span>{{this}}</span>
                     </div>
+                     {{/each}}
                 </td>
                 <td class="py-3 px-6">
-                    <div class="flex items-center gap-x-1">
-                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="checkbox" name="checkbox" value="wednesday" {{this.WednesdayChecked}}>
+                    {{#each Wednesday}}
+                    <div class="flex items-center">
+                        <span>{{this}}</span>
                     </div>
+                     {{/each}}
                 </td>
                 <td class="py-3 px-6">
-                    <div class="flex items-center gap-x-1">
-                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="checkbox" name="checkbox" value="thursday" {{this.ThursdayChecked}}>
+                    {{#each Thursday}}
+                    <div class="flex items-center">
+                        <span>{{this}}</span>
                     </div>
+                     {{/each}}
                 </td>
                 <td class="py-3 px-6">
-                    <div class="flex items-center gap-x-1">
-                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="checkbox" name="checkbox" value="friday" {{this.FridayChecked}}>
+                    {{#each Friday}}
+                    <div class="flex items-center">
+                        <span>{{this}}</span>
                     </div>
+                     {{/each}}
                 </td>
                 <td class="py-3 px-6">
-                    <div class="flex items-center gap-x-1">
-                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="checkbox" name="checkbox" value="saturday" {{this.SaturdayChecked}}>
+                    {{#each Saturday}}
+                    <div class="flex items-center">
+                        <span>{{this}}</span>
                     </div>
+                     {{/each}}
                 </td>
                 <td class="py-3 px-6">
-                    <div class="flex items-center gap-x-1">
-                        <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="checkbox" name="checkbox" value="sunday" {{this.SundayChecked}}>
+                    {{#each Sunday}}
+                    <div class="flex items-center">
+                        <span>{{this}}</span>
                     </div>
+                     {{/each}}
                 </td>
             </tr>
-            {{/each}}
         </tbody>
     </table>
 </div>
 <!-- !key -->
 <div class="w-full h-12 flex fex-row justify-end mt-3">
     <!-- key for enough waiters  -->
-    <div class="flex flex-col w-48 h-12 gap-y-3 phone:pl-3" data-step="3" data-title="KEY" data-intro="This Is My Key">
+    <div class="flex flex-col w-48 h-12 gap-y-3 phone:pl-3">
       <div class="flex flex-row items-baseline gap-x-3">
         <div class="h-4 w-4 bg-orange-400 rounded-full"></div>
         <div class="h-5 text-xl">Enough Waiters</div>
@@ -148,28 +155,6 @@
 </div>
 </div>
       <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
-      <script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
-      <script>
-      introJs().setOption("hintButtonLabel", "OK");
-      introJs().setOptions({
-  tooltipClass: 'customTooltip'
-}).start()
-      introJs().setOptions({
-        showProgress: true,
-        }).start();
-        introJs().start();
-        
-        introJs().addHints();
-      </script>
-      <style>
-        .customTooltip * {
-  color: #4a4a4a;
-  font-size: 18px
-}
-
-.customTooltip .introjs-tooltip-title {
-  color: red;
-}
-      </style>
+      <script src="sweetalert2.all.min.js"></script>
 </body>
 </html>

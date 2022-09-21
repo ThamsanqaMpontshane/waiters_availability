@@ -9,7 +9,7 @@ CREATE TABLE theDays (
 
 create table theSchedule (
     id serial primary key,
-    waiter_id INTEGER NOT NULL,
+    waiter_id INTEGER NOT NULL, 
     day_id INTEGER NOT NULL,
     FOREIGN KEY (waiter_id) REFERENCES waiter (id),
     FOREIGN KEY (day_id) REFERENCES theDays (id)

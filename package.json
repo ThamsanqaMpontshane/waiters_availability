@@ -18,10 +18,12 @@
     "express-handlebars": "^6.0.6",
     "express-session": "^1.17.3",
     "flowbite": "^1.5.3",
+    "howler": "^2.2.3",
     "mocha": "^10.0.0",
-    "nodemon": "^2.0.19",
+    "nodemon": "^2.0.20",
     "pg": "^8.8.0",
-    "pg-promise": "^10.12.0"
+    "pg-promise": "^10.12.0",
+    "sweetalert2": "^11.4.33"
   },
   "devDependencies": {
     "tailwindcss": "^3.1.8"
