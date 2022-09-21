@@ -11,7 +11,7 @@ const theWaiters = (waiters,db) => {
         // else if name is not valid
         // regex
         const regex = /^[a-zA-Z]+$/;
-        if (!regex.test(name)) {
+        if (regex.test(name) == false) {
             req.flash('error', 'Please enter a valid name');
             res.redirect('/');
         } else {
