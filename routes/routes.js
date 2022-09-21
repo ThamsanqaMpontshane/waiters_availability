@@ -56,7 +56,8 @@ const theWaiters = (waiters,db) => {
         for (let i = 0; i < days.length; i++) {
             const day = days[i];        
             const dayId = await db.manyOrNone('select id from theDays where name = $1',[day]);
-            const checkDay = await db.manyOrNone('select * from theSchedule where waiter_id = $1 and day_id = $2',[waiterId,(dayId[0].id)]);
+            const thedayId = dayId[0].id;
+            const checkDay = await db.manyOrNone('select * from theSchedule where waiter_id = $1 and day_id = $2',[waiterId,thedayId]);
             if(checkDay.length == 0){
             const getId = dayId[0].id;
             console.log(getId);
