@@ -56,12 +56,10 @@ const theWaiters = (waiters,db) => {
         for (let i = 0; i < days.length; i++) {
             const day = days[i];        
             const dayId = await db.oneOrNone('select id from theDays where name = $1',[day]);
-            console.log(dayId.id);
             const thedayId = dayId.id;
             const checkDay = await db.manyOrNone('select * from theSchedule where waiter_id = $1 and day_id = $2',[waiterId,thedayId]);
             if(checkDay.length == 0){
             const getId = dayId.id;
-            console.log(getId);
             
             await waiters.addWaiterAvailability(waiterId, getId);
             }
