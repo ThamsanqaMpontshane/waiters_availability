@@ -55,18 +55,19 @@ const theWaiters = (waiters,db) => {
         // loop through the days 
         for (let i = 0; i < days.length; i++) {
             const day = days[i];        
-            const dayId = await db.manyOrNone('select id from theDays where name = $1',[day]);
-            const thedayId = dayId[0].id;
+            const dayId = await db.oneOrNone('select id from theDays where name = $1',[day]);
+            console.log(dayId.id);
+            const thedayId = dayId.id;
             const checkDay = await db.manyOrNone('select * from theSchedule where waiter_id = $1 and day_id = $2',[waiterId,thedayId]);
             if(checkDay.length == 0){
-            const getId = dayId[0].id;
+            const getId = dayId.id;
             console.log(getId);
             
             await waiters.addWaiterAvailability(waiterId, getId);
             }
             
         }
-        req.flash('error', 'Working days updated successfully');
+        req.flash('error', 'Working days updated successfully'); 
         await waiters.getWaiterAvailability(waiterId);
         res.redirect(`/waiters/${userName}`);
     }
