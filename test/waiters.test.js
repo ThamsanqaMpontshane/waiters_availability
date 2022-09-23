@@ -27,86 +27,71 @@ describe('WAITERS APP' , async function(){
     });
 
     it('should be able to add a waiter to the database' , async function(){
-        await waiters.addWaiter('Lerato');
+        await waiters.addWaiter('lerato');
         const waiter = await waiters.getWaiter('LERATO');
         assert.equal(waiter.name, 'LERATO');
     });
 
     it('should be able to add the days that a Lerato is working' , async function(){
-        await waiters.addWaiter('Lerato');
+        await waiters.addWaiter('lerato');
         const waiter = await waiters.getWaiter('LERATO');
-        console.log(waiter);
         const waiterId = waiter.id;
-        // add days
-        // addDays(waiterId, days)
-        // getDays(waiterId)
-        // getDaysId(day)
-        // addWaiterAvailability(waiterId, dayId)
-        // getWaiterAvailability(waiterId)
-
-        await waiters.addDays(waiterId, 'Monday');
+        const leratoDays = ['monday', 'tuesday', 'wednesday'];
+        await waiters.addDays(waiterId, leratoDays);
         const days = await waiters.getDays(waiterId);
-        assert.equal(days, ['Monday']);
+        assert.deepEqual(days, leratoDays);
     });
 
-    // it('should be able to get the days that a Mabhozeni is working' , async function(){
-    //     await waiters.addWaiter('Mabhozeni');
-    //     const waiter = await waiters.getWaiter('MABHOZENI');
-    //     const waiterId = waiter.id;
-    //     const day = await waiters.getDaysId('monday');
-    //     await waiters.addWaiterAvailability(waiterId, day);
-    //     const waiterDays = await waiters.getWaiterAvailability(waiterId);
-    //     assert.deepEqual(waiterDays, ['monday']);
-    // });
+    it('should be able to get the days that a Mabhozeni is working' , async function(){
+        await waiters.addWaiter('mabHozeni');
+        const waiter = await waiters.getWaiter('MABHOZENI');
+        const waiterId = waiter.id;
+        const mabhozeniDays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
+        await waiters.addDays(waiterId, mabhozeniDays);
+        const days = await waiters.getDays(waiterId);
+        assert.deepEqual(days, mabhozeniDays);
+    });
 
-    // it('should be able to get the days that a Mabhozeni is working' , async function(){
-    //     await waiters.addWaiter('Mabhozeni');
-    //     const waiter = await waiters.getWaiter('Mabhozeni');
-    //     await waiters.addWaiterAvailability(waiter.id, 'Monday');
-    //     await waiters.addWaiterAvailability(waiter.id, 'Tuesday');
-    //     await waiters.addWaiterAvailability(waiter.id, 'Wednesday');
-    //     await waiters.addWaiterAvailability(waiter.id, 'Thursday');
+    it('should be able to get the days that a Portia is working' , async function(){
+        await waiters.addWaiter('portIA');
+        const waiter = await waiters.getWaiter('PORTIA');
+        const waiterId = waiter.id;
+        const portiaDays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+        await waiters.addDays(waiterId, portiaDays);
+        const days = await waiters.getDays(waiterId);
+        assert.deepEqual(days, portiaDays);
+    });
 
-    //     const days = await waiters.getWaiterAvailability(waiter.id);
-    //     assert.deepEqual(days, ['Monday', 'Tuesday', 'Wednesday', 'Thursday']);
-    // });
+    it('should be able to reset the database' , async function(){
 
-    // should be able to reset the database
-    // it('should be able to reset the database' , async function(){
-    //     await waiters.addWaiter('Lerato');
-    //     const waiter = await waiters.getWaiter('Lerato');
-    //     await waiters.addWaiterAvailability(waiter.id, 'Monday');
-    //     await waiters.addWaiterAvailability(waiter.id, 'Tuesday');
-    //     await waiters.addWaiterAvailability(waiter.id, 'Wednesday');
-    //     await waiters.addWaiterAvailability(waiter.id, 'Thursday');
-    //     await waiters.reset();
-    //     const days = await waiters.getWaiterAvailability(waiter.id);
-    //     assert.deepEqual(days, []);
-    // });
+        await waiters.reset();
+        const waiters1 = await db.manyOrNone('select * from waiter');
+        const days = await db.manyOrNone('select * from theSchedule');
+        assert.deepEqual(waiters1, []);
+        assert.deepEqual(days, []);
+    });
     // should be able to get all the waiters
 
-    // it('should be able to get all the waiters', async function(){
-    //     await waiters.addWaiter('Lerato');
-    //     await waiters.addWaiter('Mabhozeni');
-    //     await waiters.addWaiter('Mpho');
-    //     await waiters.addWaiter('Mpho');
-    //     const waitersList = await waiters.getAllWaiters();
-    //     assert.equal(waitersList.length, 3);
-    // });
+    it('should be able to get the count of all the waiters', async function(){
+        await waiters.addWaiter('Lerato');
+        await waiters.addWaiter('Mabhozeni');
+        await waiters.addWaiter('Mpho');
+        await waiters.addWaiter('Mpho');
+        const waitersList = await waiters.getAllWaiters();
+        assert.equal(waitersList.length, 3);
+    });
 
-    // it('should be able to get all the waiters', async function(){
-    //     await waiters.addWaiter('Lerato');
-    //     await waiters.addWaiter('Mabhozeni');
-    //     await waiters.addWaiter('Mpho');
-    //     await waiters.addWaiter('Mpho');
-    //     const waitersList = await waiters.getAllWaiters();
-    //     // console.log(waitersList);
-    //     assert.equal(waitersList ,['LERATO','MABHOZENI','MPHO']);
-    // });
+    it('should be able to get all the waiters', async function(){
+        await waiters.addWaiter('lerato');
+        await waiters.addWaiter('mabhozeni');
+        await waiters.addWaiter('mpho');
+        await waiters.addWaiter('mpho');
+        const waitersList = await waiters.getAllWaiters();
+        assert.deepEqual(waitersList, ['LERATO', 'MABHOZENI', 'MPHO']);
+    });
 
     after(async function(){
         await db.manyOrNone('Truncate theSchedule');
-        // await db.manyOrNone('Truncate waiter');
         pgp.end();
     });
 });

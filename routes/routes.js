@@ -65,7 +65,7 @@ const theWaiters = (waiters,db) => {
             }
             
         }
-        req.flash('error', 'Working days updated successfully'); 
+        req.flash('error', 'Working days updated successfully');
         await waiters.getWaiterAvailability(waiterId);
         res.redirect(`/waiters/${userName}`);
     }
