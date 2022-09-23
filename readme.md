@@ -24,6 +24,8 @@ TECHNOLOGY USED
 * Javascript
 * Handlebars
 * TailwindCSS
+* Adobe Illustrator
+* User Onboarding: Intro.js
 * Testing: Mocha
 * Database: Postgres
 * Deployment: Heroku
@@ -32,7 +34,7 @@ https://waiters-availabilty.herokuapp.com/
 
 DEVELOPER
 ---------
-* [Thamsanqa Mpontshane]
+This app was developed by **Thamsanqa Mpontshane**.
 
 BADGES
 ------

@@ -601,6 +601,10 @@ video {
   border-width: 0;
 }
 
+.absolute {
+  position: absolute;
+}
+
 .relative {
   position: relative;
 }
@@ -713,6 +717,14 @@ video {
 
 .h-16 {
   height: 4rem;
+}
+
+.h-0 {
+  height: 0px;
+}
+
+.h-full {
+  height: 100%;
 }
 
 .w-screen {
@@ -972,6 +984,11 @@ video {
 .bg-yellow-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(234 179 8 / var(--tw-bg-opacity));
+}
+
+.object-cover {
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .p-2 {

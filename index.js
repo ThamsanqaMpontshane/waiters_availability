@@ -45,6 +45,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static("public"));
 
 app.get('/', Routers.defaultRoute);
+
 app.post('/waiters',Routers.addWaiter);
 app.get('/waiters/:name',Routers.getWaiter);
 app.post('/waiters/:name',Routers.postWaiter);
@@ -52,7 +53,9 @@ app.get('/reset', Routers.theReset);
 // app.post('/resetDays', Routers.resetIndividual);
 // app.get('/resetDays', Routers.resetIndividual);
 app.get('/admin', Routers.theAdmin);
-
+app.get('/about', async function(req, res){
+    res.render('about');
+});
 app.listen(process.env.PORT || 3_666, () => {
     console.log("Server is running on port 3_666");
 });

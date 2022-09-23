@@ -40,61 +40,18 @@
           </div>
         </div>
       </nav>
-    <div class="container h-screen box-border bg-white flex flex-col items-center">
-      <div class="h-16 w-5/12 tablet:w-10/12 tablet:mt-44 phone:w-72 phone:mt-4">
-        <h1 class="laptop:text-7xl phone:text-4xl tablet:text-7xl text-gray-400 text-center my-3 font-graduate pt-11  tracking-wider phone:tracking-tight ">WAITERS AVAILABILITY</h1>
-      </div>
-        <form class="bg-white mt-48 tablet:w-5/6 tablet:mt-80 phone:w-80 phone:mt-44" action="/waiters" method="post" data-title="HELLO USER" data-intro="This Is A Login Form" data-position="left">
-            <div class="flex items-center border-b border-red-800 py-2 gap-x-1 phone:">
-              <input class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Enter Your Name" aria-label="Full name" name="name" required  data-title="TEXT-BOX" data-intro="This Is Where You Can Enter A Waiters Name" data-position="top-left">
-              <button class="flex-shrink-0 bg-red-700 hover:bg-gray-500 border-red-700 hover:border-gray-500 text-sm border-4 text-white py-1 px-2 rounded" type="button">
-                Sign Up
-              </button>
-              <a href="/waiters">
-              <button class="flex-shrink-0 border-transparent border-4 text-gray-600 hover:bg-gray-300 text-sm py-1 px-2 rounded" type="submit" data-title="LOGIN BUTTON" data-intro="This Is The Login Button.Press It To Login">
-                Login
-              </button>
-            </a>
-            </div>
-          </form> 
-          <!-- error message -->
-          <div class="text-red-500 text-center mt-2 font-bold">
-            {{#if messages.error}}
-            <p class="error">{{messages.error}}</p>
-            {{/if}}
-          </div>
-          <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 laptop:mt-10 phone:mt-16 tablet:mt-10" role="alert">
-            <p class="font-bold">Note</p>
-            <p>Only waiters can login to this page</p>
-          </div>
-      </div>
-      <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
-      <script src="setTimeout.js"></script>
-      <script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
-      <script>
-         introJs().setOptions({
-        showProgress: true,
-        showBullets: false,
-        showStepNumbers: false,
-        nextLabel: 'Next',
-        prevLabel: 'Previous',
-        doneLabel: 'Done',
-        tooltipClass: 'customTooltip',
-        exitOnOverlayClick: false,
-        disableInteraction: true,
-        exitOnEsc: false, 
-         }).start();
-      </script>
-            <style>
-              .customTooltip * {
-                color: #4a4a4a;
-                font-size: 18px;
-              }
-             .customTooltip .introjs-tooltip-title {
-                color: red;
-                font-size: 20px;
-                font-weight: bold;
-              }
-            </style>
-  </body>
-</html>
+    <div class="container mx-auto w-screen h-screen">
+        <!-- video with aspect ratio -->
+        <!-- embed -->
+        <div class="relative w-full h-0 pb-9/16">
+          <iframe
+            class="absolute w-full h-full"
+            src="//myvid.mp4"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+    </div>
+
+    </body>
+    </html>
