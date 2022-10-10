@@ -28,7 +28,7 @@
                 <a href="/about" class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</a>
               </li>
               <li>
-                <a href="/admin" class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent" data-step="3" data-title="Admin Page" data-intro="Click On This Button To See How Many Workers Are Able To Work">Admin Login</a>
+                <a href="/adminSignup" class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent" data-step="3" data-title="Admin Page" data-intro="Click On This Button To See How Many Workers Are Able To Work">Admin Login</a>
               </li>
             </ul>
           </div>
@@ -82,13 +82,14 @@
               <button type="submit" class="bg-white text-center px-2  border border-black rounded-md tablet:h-9 tablet:w-24" data-step="2" data-title="SUBMIT BUTTON" data-intro="Click On This Button To Submit Or Update Waiter Selected Days">
                 Submit
              </button>
-             <a href="/resetDays">
-              <button type="button" class="bg-gray-300 text-center px-2 border border-black rounded-md text-black font-semibold tablet:h-9 tablet:w-24">
+             </form>
+             <form action="/resetDays" method="post">
+              <button type="submit" class="bg-gray-300 text-center px-2 border border-black rounded-md text-black font-semibold tablet:h-9 tablet:w-24">
                 Reset
               </button>
-            </a>
+             </form>
             </div>
-          </form>
+          
         </div>
       </div>
     <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>

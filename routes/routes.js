@@ -1,3 +1,5 @@
+import ShortUniqueId from "short-unique-id";
+const uid = new ShortUniqueId();
 const theWaiters = (waiters,db) => {
     async function defaultRoute(req, res) {
         res.render('index');
@@ -49,9 +51,9 @@ const theWaiters = (waiters,db) => {
     async function postWaiter(req, res) {
         const  userName  = req.params.name;
         const { days } = req.body;
-    
         const getTheWaiter = await waiters.getWaiter(userName);
         const waiterId = getTheWaiter.id;
+        const getIndividual = await waiters.getIndividualWaiterDays(waiterId);
         // loop through the days 
         for (let i = 0; i < days.length; i++) {
             const day = days[i];        
@@ -59,11 +61,18 @@ const theWaiters = (waiters,db) => {
             const thedayId = dayId.id;
             const checkDay = await db.manyOrNone('select * from theSchedule where waiter_id = $1 and day_id = $2',[waiterId,thedayId]);
             if(checkDay.length == 0){
-            const getId = dayId.id;
-            
+            const getId = dayId.id; 
             await waiters.addWaiterAvailability(waiterId, getId);
             }
-            
+        } 
+      //  if days dos not include any day in the getIndividual array then delete the day from theSchedule table
+        for (let i = 0; i < getIndividual.length; i++) {
+            const day = getIndividual[i];
+            if(!days.includes(day)){
+                const dayId = await db.oneOrNone('select id from theDays where name = $1',[day]);
+                const thedayId = dayId.id;
+                await db.none('delete from theSchedule where waiter_id = $1 and day_id = $2',[waiterId,thedayId]);
+            }
         }
         req.flash('error', 'Working days updated successfully');
         await waiters.getWaiterAvailability(waiterId);
@@ -227,13 +236,63 @@ const theWaiters = (waiters,db) => {
             waiterList3
         });
     }
-        async function resetIndividual(req, res) {
-            const  userName  = req.params.name;
-            const getTheWaiter = await waiters.getWaiter(userName);
-            const waiterId = getTheWaiter.id;
-            await waiters.resetDays(waiterId);
-            res.redirect(`/waiters/${userName}`);
+    async function resetIndividual(req, res) {
+            // const  userName  = req.params.name;
+            // console.log(userName);
+            // const getTheWaiter = await waiters.getWaiter(userName);
+            // const waiterId = getTheWaiter.id;
+            // const waiterName = getTheWaiter.name;
+            // await waiters.resetDays(waiterId);
+            res.redirect(`/waiters/${waiterName}`);
+    }
+    async function adminLogin(req, res) {
+        res.render('adminLogin');
+    }
+
+    async function adminLoginPost(req, res) {
+        const userName = req.body.username;
+        const upperName = userName.toUpperCase();
+        const password = req.body.password;
+        const admin = await waiters.getAdmin(upperName);
+        if(admin){
+            if(admin.password == password){
+                res.redirect('/admin');
+            }
+            else{
+                res.render('adminLogin', {message: 'Wrong password'});
+            }
         }
+        else{
+            res.render('adminLogin', {message: 'Wrong username'});
+        }
+    }
+    async function adminSignupPost(req, res){
+        const userName = req.body.username;
+        const upperName = userName.toUpperCase();
+        const admin = await waiters.getAdmin(upperName);
+        if(admin){
+            req.flash('error', 'Username already exists');
+            res.render('adminSignup');
+        }
+        else{
+            await waiters.addAdmin(upperName, uid());
+            const adminName = await db.manyOrNone('select password from myAdmins where username = $1',[upperName]);
+            const thePassword = adminName[0].password;
+            req.flash('error', `Admin created successfully. Your Password is ${thePassword}`);
+            res.render('adminSignup');
+        }
+    }
+    
+    async function adminSignup(req, res) {
+        res.render('adminSignup');
+    }
+    async function adminLogout(req, res) {
+        res.redirect('/adminLogin');
+    }
+    async function adminReset(req, res) {
+        await waiters.resetAll();
+        res.redirect('/admin');
+    }
     return {
         defaultRoute,
         getWaiter,
@@ -241,7 +300,13 @@ const theWaiters = (waiters,db) => {
         theReset,
         postWaiter,
         addWaiter,
-        resetIndividual
+        resetIndividual,
+        adminLogin,
+        adminLoginPost,
+        adminLogout,
+        adminReset,
+        adminSignup,
+        adminSignupPost
     }
 
 };

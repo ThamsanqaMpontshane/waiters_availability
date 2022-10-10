@@ -58,7 +58,7 @@ function waiterAvailability(db){
     }
     async function addDays(waiterId, days){
         // ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-        // don not use map
+        // do not use map
         for (let i = 0; i < days.length; i++) {
             const day = days[i];
             const getDayId = await db.manyOrNone('select id from theDays where name = $1',[day]);
@@ -89,6 +89,21 @@ function waiterAvailability(db){
         const dayId = await db.manyOrNone('select id from theDays where name = $1',[day]);
         return dayId[0].id;
     }
+    // add admin
+    async function addAdmin(username, password){
+        const admin = await db.manyOrNone('select * from myAdmins where username = $1',[username]);
+        if(admin.length == 0){
+            return await db.none(`INSERT INTO myAdmins (username, password) VALUES ('${username}', '${password}')`);
+        }
+    }
+    // get admin
+    async function getAdmin(username){
+        return await db.oneOrNone('select * from myAdmins where username = $1',[username]);
+    }
+    // admin logout
+    async function adminLogout(){
+        return await db.none('delete from myAdmins');
+    }
         return {
             addWaiter,
             getWaiter,
@@ -102,7 +117,9 @@ function waiterAvailability(db){
             resetDays,
             getDays,
             getDaysId,
-
+            addAdmin,
+            getAdmin,
+            adminLogout
         }
     }
 
