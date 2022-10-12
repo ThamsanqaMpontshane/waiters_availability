@@ -1,3 +1,4 @@
+import { response } from "express";
 import ShortUniqueId from "short-unique-id";
 const uid = new ShortUniqueId();
 const theWaiters = (waiters,db) => {
@@ -85,6 +86,10 @@ const theWaiters = (waiters,db) => {
     }
 
     async function theAdmin(req, res) {
+        // console.log(req.session.admin);
+        // if(!req.session.admin){
+        //     res.redirect('/adminLogin');
+        // }
         const selectAlLWaiter = await db.manyOrNone('select waiter_id from theSchedule');
         const selectDayId = await db.manyOrNone('select day_id from theSchedule');
         // !list of names of the waiters
@@ -245,6 +250,7 @@ const theWaiters = (waiters,db) => {
             // await waiters.resetDays(waiterId);
             res.redirect(`/waiters/${waiterName}`);
     }
+
     async function adminLogin(req, res) {
         res.render('adminLogin');
     }
@@ -254,6 +260,7 @@ const theWaiters = (waiters,db) => {
         const upperName = userName.toUpperCase();
         const password = req.body.password;
         const admin = await waiters.getAdmin(upperName);
+        
         if(admin){
             if(admin.password == password){
                 res.redirect('/admin');
@@ -264,23 +271,24 @@ const theWaiters = (waiters,db) => {
         }
         else{
             res.render('adminLogin', {message: 'Wrong username'});
-        }
+        } 
+        // req.session.user = admin;
     }
     async function adminSignupPost(req, res){
         const userName = req.body.username;
         const upperName = userName.toUpperCase();
         const admin = await waiters.getAdmin(upperName);
+        // session code
         if(admin){
             req.flash('error', 'Username already exists');
             res.render('adminSignup');
+            return;
         }
-        else{
-            await waiters.addAdmin(upperName, uid());
-            const adminName = await db.manyOrNone('select password from myAdmins where username = $1',[upperName]);
-            const thePassword = adminName[0].password;
-            req.flash('error', `Admin created successfully. Your Password is ${thePassword}`);
-            res.render('adminSignup');
-        }
+        await waiters.addAdmin(upperName, uid());
+        const adminName = await db.manyOrNone('select password from myAdmins where username = $1',[upperName]);
+        const thePassword = adminName[0].password;
+        req.flash('error', `Admin created successfully. Your Password is ${thePassword}`);
+        res.render('adminSignup');
     }
     
     async function adminSignup(req, res) {

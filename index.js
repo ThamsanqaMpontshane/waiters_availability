@@ -4,6 +4,8 @@ import exphbs from "express-handlebars";
 import waiterAvailability from "./waiters.js";
 import flash from "express-flash";
 import session from "express-session";
+// import psqlStore from "connect-pg-simple";
+// const pgSession = psqlStore(session);
 import pgPromise from 'pg-promise';
 import waiterRouter from "./routes/routes.js";
 const app = express();
@@ -27,10 +29,20 @@ const waiters = waiterAvailability(db);
 const Routers = waiterRouter(waiters, db);
 
 app.use(session({
-    secret: "<add a secret string here>",
+    secret: "admin",
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: false,
+    // store: new pgSession({
+    // })
 }));
+
+function isAuth(req, res, next){
+    if(req.session.admin){
+        next();
+    }else{
+        res.redirect("/login");
+    }
+}
 app.use(flash());
 
 app.engine("handlebars", exphbs.engine({
