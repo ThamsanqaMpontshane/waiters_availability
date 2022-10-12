@@ -51,7 +51,10 @@ const theWaiters = (waiters,db) => {
 
     async function postWaiter(req, res) {
         const  userName  = req.params.name;
-        const { days } = req.body;
+        let { days } = req.body;
+        if(typeof days === "string"){
+            days = [days];
+        }
         const getTheWaiter = await waiters.getWaiter(userName);
         const waiterId = getTheWaiter.id;
         const getIndividual = await waiters.getIndividualWaiterDays(waiterId);
