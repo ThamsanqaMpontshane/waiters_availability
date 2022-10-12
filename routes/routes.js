@@ -56,11 +56,14 @@ const theWaiters = (waiters,db) => {
         const waiterId = getTheWaiter.id;
         const getIndividual = await waiters.getIndividualWaiterDays(waiterId);
         // loop through the days 
+        console.log("daty",days);
         for (let i = 0; i < days.length; i++) {
-            const day = days[i];        
+            const day = days[i];
+            console.log("day", day)
             const dayId = await db.oneOrNone('select id from theDays where name = $1',[day]);
             const thedayId = dayId.id;
             const checkDay = await db.manyOrNone('select * from theSchedule where waiter_id = $1 and day_id = $2',[waiterId,thedayId]);
+            console.log(checkDay);
             if(checkDay.length == 0){
             const getId = dayId.id; 
             await waiters.addWaiterAvailability(waiterId, getId);
