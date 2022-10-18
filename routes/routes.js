@@ -1,22 +1,32 @@
-import { response } from "express";
 import ShortUniqueId from "short-unique-id";
+
 const uid = new ShortUniqueId();
-const theWaiters = (waiters,db) => {
+const theWaiters = (waiters, db) => {
     async function defaultRoute(req, res) {
         res.render('index');
     }
+
+    async function waiterPage(req, res) {
+        res.render('waiterPage');
+    }
+
     async function addWaiter(req, res) {
-        const { name } = req.body;
-        if (name == "") {
+        console.log(req.body)
+        const {name} = req.body;
+        const getWaiterAll = await waiters.getWaiter(name);
+        if (name === "") {
             req.flash('error', 'Please enter your name');
-            res.redirect('/');
+            res.redirect('/waiterPage');
         }
-        // else if name is not valid
-        // regex
         const regex = /^[a-zA-Z]+$/;
-        if (regex.test(name) == false) {
+        if (regex.test(name) === false) {
             req.flash('error', 'Please enter a valid name');
-            res.redirect('/');
+            res.redirect('/waiterPage');
+        }
+        //else if name is not in the database
+        else if (getWaiterAll.length === 0) {
+            req.flash('error', 'Please sign up');
+            res.redirect('/waiterPage');
         } else {
             await waiters.addWaiter(name);
             const waiter = await waiters.getWaiter(name);
@@ -50,35 +60,34 @@ const theWaiters = (waiters,db) => {
     }
 
     async function postWaiter(req, res) {
-        const  userName  = req.params.name;
-        let { days } = req.body;
-        if(typeof days === "string"){
+        const userName = req.params.name;
+        let {days} = req.body;
+        if (typeof days === "string") {
             days = [days];
         }
         const getTheWaiter = await waiters.getWaiter(userName);
         const waiterId = getTheWaiter.id;
         const getIndividual = await waiters.getIndividualWaiterDays(waiterId);
-        // loop through the days 
-        console.log("daty",days);
+        // loop through the days
         for (let i = 0; i < days.length; i++) {
             const day = days[i];
             console.log("day", day)
-            const dayId = await db.oneOrNone('select id from theDays where name = $1',[day]);
-            const thedayId = dayId.id;
-            const checkDay = await db.manyOrNone('select * from theSchedule where waiter_id = $1 and day_id = $2',[waiterId,thedayId]);
+            const dayId = await db.oneOrNone('select id from theDays where name = $1', [day]);
+            const dayIdValue = dayId.id;
+            const checkDay = await db.manyOrNone('select * from theSchedule where waiter_id = $1 and day_id = $2', [waiterId, dayIdValue]);
             console.log(checkDay);
-            if(checkDay.length == 0){
-            const getId = dayId.id; 
-            await waiters.addWaiterAvailability(waiterId, getId);
+            if (checkDay.length === 0) {
+                const getId = dayId.id;
+                await waiters.addWaiterAvailability(waiterId, getId);
             }
-        } 
-      //  if days dos not include any day in the getIndividual array then delete the day from theSchedule table
+        }
+        //  if days dos not include any day in the getIndividual array then delete the day from theSchedule table
         for (let i = 0; i < getIndividual.length; i++) {
             const day = getIndividual[i];
-            if(!days.includes(day)){
-                const dayId = await db.oneOrNone('select id from theDays where name = $1',[day]);
+            if (!days.includes(day)) {
+                const dayId = await db.oneOrNone('select id from theDays where name = $1', [day]);
                 const thedayId = dayId.id;
-                await db.none('delete from theSchedule where waiter_id = $1 and day_id = $2',[waiterId,thedayId]);
+                await db.none('delete from theSchedule where waiter_id = $1 and day_id = $2', [waiterId,]);
             }
         }
         req.flash('error', 'Working days updated successfully');
@@ -92,10 +101,6 @@ const theWaiters = (waiters,db) => {
     }
 
     async function theAdmin(req, res) {
-        // console.log(req.session.admin);
-        // if(!req.session.admin){
-        //     res.redirect('/adminLogin');
-        // }
         const selectAlLWaiter = await db.manyOrNone('select waiter_id from theSchedule');
         const selectDayId = await db.manyOrNone('select day_id from theSchedule');
         // !list of names of the waiters
@@ -104,7 +109,7 @@ const theWaiters = (waiters,db) => {
         const waiterList3 = [];
         for (let i = 0; i < waiterNames.length; i++) {
             const waiter = waiterNames[i];
-              // console.log(waiter);
+            // console.log(waiter);
             const theWaiter = await waiters.getWaiter(waiter);
             // console.log(theWaiter);
             const waiterId = theWaiter.id;
@@ -140,31 +145,35 @@ const theWaiters = (waiters,db) => {
         const Saturday = [];
         const Sunday = [];
         for (let i = 0; i < selectDayId.length; i++) {
-            const dayId = selectDayId[i].day_id;
+            const dayId = selectDayId[i];
+            const dayIdValue = dayId.day_id;
+            // console.log(dayIdValue);
+            // lee davies
+            const dayName = await db.oneOrNone('select name from theDays where id = $1', [dayIdValue]);
             const waiterId = selectAlLWaiter[i].waiter_id;
-            const waiterName = await db.manyOrNone('select name from waiter where id = $1',[waiterId]);
-            const dayName = await db.manyOrNone('select name from theDays where id = $1',[dayId]);
-    
-            if(dayName[0].name == 'monday'){
-                Monday.push(waiterName[0].name);
+            const waiterName = await db.oneOrNone('select name from waiter where id = $1', [waiterId]);
+            const waiterNameValue = waiterName.name;
+            const dayNameValue = dayName.name;
+            if (dayNameValue === 'monday') {
+                Monday.push(waiterNameValue);
             }
-            if(dayName[0].name == 'tuesday'){
-                Tuesday.push(waiterName[0].name);
+            if (dayNameValue === 'tuesday') {
+                Tuesday.push(waiterNameValue);
             }
-            if(dayName[0].name == 'wednesday'){
-                Wednesday.push(waiterName[0].name);
+            if (dayNameValue === 'wednesday') {
+                Wednesday.push(waiterNameValue);
             }
-            if(dayName[0].name == 'thursday'){
-                Thursday.push(waiterName[0].name);
+            if (dayNameValue === 'thursday') {
+                Thursday.push(waiterNameValue);
             }
-            if(dayName[0].name == 'friday'){
-                Friday.push(waiterName[0].name);
+            if (dayNameValue === 'friday') {
+                Friday.push(waiterNameValue);
             }
-            if(dayName[0].name == 'saturday'){
-                Saturday.push(waiterName[0].name);
+            if (dayNameValue === 'saturday') {
+                Saturday.push(waiterNameValue);
             }
-            if(dayName[0].name == 'sunday'){
-                Sunday.push(waiterName[0].name);
+            if (dayNameValue === 'sunday') {
+                Sunday.push(waiterNameValue);
             }
         }
 
@@ -178,56 +187,56 @@ const theWaiters = (waiters,db) => {
         const SundayColor = [];
         for (let i = 0; i < days.length; i++) {
             const day = days[i];
-            if(day > 3){
+            if (day > 3) {
                 // avoid code duplication
-                if(i == 0){
+                if (i === 0) {
                     MondayColor.push('red');
                 }
-                if(i == 1){
+                if (i === 1) {
                     TuesdayColor.push('red');
                 }
-                if(i == 2){
+                if (i === 2) {
                     WednesdayColor.push('red');
                 }
-                if(i == 3){
+                if (i === 3) {
                     ThursdayColor.push('red');
                 }
-                if(i == 4){
+                if (i === 4) {
                     FridayColor.push('red');
                 }
-                if(i == 5){
+                if (i === 5) {
                     SaturdayColor.push('red');
                 }
-                if(i == 6){
+                if (i === 6) {
                     SundayColor.push('red');
                 }
-    
+
             }
-                if(day == 3){
-                    if(i == 0){
-                        MondayColor.push('orange');
-                    }
-                    if(i == 1){
-                        TuesdayColor.push('orange');
-                    }
-                    if(i == 2){
-                        WednesdayColor.push('orange');
-                    }
-                    if(i == 3){
-                        ThursdayColor.push('orange');
-                    }
-                    if(i == 4){
-                        FridayColor.push('orange');
-                    }
-                    if(i == 5){
-                        SaturdayColor.push('orange');
-                    }
-                    if(i == 6){
-                        SundayColor.push('orange');
-                    }
+            if (day === 3) {
+                if (i === 0) {
+                    MondayColor.push('orange');
                 }
+                if (i === 1) {
+                    TuesdayColor.push('orange');
+                }
+                if (i === 2) {
+                    WednesdayColor.push('orange');
+                }
+                if (i === 3) {
+                    ThursdayColor.push('orange');
+                }
+                if (i === 4) {
+                    FridayColor.push('orange');
+                }
+                if (i === 5) {
+                    SaturdayColor.push('orange');
+                }
+                if (i === 6) {
+                    SundayColor.push('orange');
+                }
+            }
         }
-        res.render('admin',{
+        res.render('admin', {
             Monday,
             Tuesday,
             Wednesday,
@@ -247,14 +256,31 @@ const theWaiters = (waiters,db) => {
             waiterList3
         });
     }
+
+    async function adminPost(req, res) {
+        const waiterName = req.body.waiterName;
+        // console.log(waiterName);
+        const theCheckBoxes = req.body.checkbox;
+        const waiterNames = await waiters.getAllWaiters();
+        //update each waiter days
+        for (let i = 0; i < waiterNames.length; i++) {
+            const waiter = waiterNames[i];
+            const theWaiter = await waiters.getWaiter(waiter);
+            const waiterId = theWaiter.id;
+            // console.log(theCheckBoxes)
+            await waiters.adminUpdateWaiterDays(waiterId, theCheckBoxes);
+        }
+        // res.redirect('/admin');
+    }
+
     async function resetIndividual(req, res) {
-            // const  userName  = req.params.name;
-            // console.log(userName);
-            // const getTheWaiter = await waiters.getWaiter(userName);
-            // const waiterId = getTheWaiter.id;
-            // const waiterName = getTheWaiter.name;
-            // await waiters.resetDays(waiterId);
-            res.redirect(`/waiters/${waiterName}`);
+        // const  userName  = req.params.name;
+        // console.log(userName);
+        // const getTheWaiter = await waiters.getWaiter(userName);
+        // const waiterId = getTheWaiter.id;
+        // const waiterName = getTheWaiter.name;
+        // await waiters.resetDays(waiterId);
+        res.redirect(`/waiters/${waiterName}`);
     }
 
     async function adminLogin(req, res) {
@@ -262,51 +288,54 @@ const theWaiters = (waiters,db) => {
     }
 
     async function adminLoginPost(req, res) {
+        console.log(req.session.isAuth)
         const userName = req.body.username;
         const upperName = userName.toUpperCase();
         const password = req.body.password;
         const admin = await waiters.getAdmin(upperName);
-        
-        if(admin){
-            if(admin.password == password){
+        if (admin) {
+            if (admin.password === password) {
+                req.session.admin = admin;
+                req.session.isAuth = true;
                 res.redirect('/admin');
-            }
-            else{
+            } else {
                 res.render('adminLogin', {message: 'Wrong password'});
             }
-        }
-        else{
+        } else {
             res.render('adminLogin', {message: 'Wrong username'});
-        } 
-        // req.session.user = admin;
+        }
     }
-    async function adminSignupPost(req, res){
+
+    async function adminSignupPost(req, res) {
         const userName = req.body.username;
         const upperName = userName.toUpperCase();
         const admin = await waiters.getAdmin(upperName);
-        // session code
-        if(admin){
+        if (admin) {
             req.flash('error', 'Username already exists');
             res.render('adminSignup');
             return;
         }
         await waiters.addAdmin(upperName, uid());
-        const adminName = await db.manyOrNone('select password from myAdmins where username = $1',[upperName]);
+        const adminName = await db.manyOrNone('select password from myAdmins where username = $1', [upperName]);
         const thePassword = adminName[0].password;
-        req.flash('error', `Admin created successfully. Your Password is ${thePassword}`);
+        req.flash('pass', `Admin created successfully. Your Password is ${thePassword}`);
         res.render('adminSignup');
     }
-    
+
     async function adminSignup(req, res) {
         res.render('adminSignup');
     }
+
     async function adminLogout(req, res) {
-        res.redirect('/adminLogin');
+        req.session.destroy();
+        res.redirect('/adminSignup');
     }
+
     async function adminReset(req, res) {
         await waiters.resetAll();
         res.redirect('/admin');
     }
+
     return {
         defaultRoute,
         getWaiter,
@@ -320,9 +349,10 @@ const theWaiters = (waiters,db) => {
         adminLogout,
         adminReset,
         adminSignup,
-        adminSignupPost
+        adminSignupPost,
+        adminPost,
+        waiterPage
     }
-
 };
 
 export default theWaiters;

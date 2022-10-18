@@ -6,7 +6,6 @@ CREATE TABLE theDays (
     id serial primary key,
     name varchar(255) not null
 );
-
 create table theSchedule (
     id serial primary key,
     waiter_id INTEGER NOT NULL, 
@@ -17,7 +16,7 @@ create table theSchedule (
 create table myAdmins (
     id serial primary key,
     username varchar(255) not null,
-    password varchar(255) not null
+    password varchar(255) not nullMENTOR
 );
 
 

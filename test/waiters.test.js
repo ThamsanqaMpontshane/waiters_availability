@@ -10,7 +10,7 @@ const config = {
     connectionString
 }
 
-if(process.env.NODE_ENV == "production"){
+if (process.env.NODE_ENV === "production") {
     config.ssl = {
         rejectUnauthorized: false
     }
@@ -20,19 +20,19 @@ if(process.env.NODE_ENV == "production"){
 const db = pgp(config);
 const waiters = waiterAvailability(db);
 
-describe('WAITERS APP' , async function(){
-    beforeEach(async function(){
+describe('WAITERS APP', async function () {
+    beforeEach(async function () {
         await db.manyOrNone('delete from theSchedule');
         await db.manyOrNone('delete from waiter');
     });
 
-    it('should be able to add a waiter to the database' , async function(){
+    it('should be able to add a waiter to the database', async function () {
         await waiters.addWaiter('lerato');
         const waiter = await waiters.getWaiter('LERATO');
         assert.equal(waiter.name, 'LERATO');
     });
 
-    it('should be able to add the days that a Lerato is working' , async function(){
+    it('should be able to add the days that a Lerato is working', async function () {
         await waiters.addWaiter('lerato');
         const waiter = await waiters.getWaiter('LERATO');
         const waiterId = waiter.id;
@@ -42,7 +42,7 @@ describe('WAITERS APP' , async function(){
         assert.deepEqual(days, leratoDays);
     });
 
-    it('should be able to get the days that a Mabhozeni is working' , async function(){
+    it('should be able to get the days that a Mabhozeni is working', async function () {
         await waiters.addWaiter('mabHozeni');
         const waiter = await waiters.getWaiter('MABHOZENI');
         const waiterId = waiter.id;
@@ -52,7 +52,7 @@ describe('WAITERS APP' , async function(){
         assert.deepEqual(days, mabhozeniDays);
     });
 
-    it('should be able to get the days that a Portia is working' , async function(){
+    it('should be able to get the days that a Portia is working', async function () {
         await waiters.addWaiter('portIA');
         const waiter = await waiters.getWaiter('PORTIA');
         const waiterId = waiter.id;
@@ -62,7 +62,7 @@ describe('WAITERS APP' , async function(){
         assert.deepEqual(days, portiaDays);
     });
 
-    it('should be able to reset the database' , async function(){
+    it('should be able to reset the database', async function () {
 
         await waiters.reset();
         const waiters1 = await db.manyOrNone('select * from waiter');
@@ -72,7 +72,7 @@ describe('WAITERS APP' , async function(){
     });
     // should be able to get all the waiters
 
-    it('should be able to get the count of all the waiters', async function(){
+    it('should be able to get the count of all the waiters', async function () {
         await waiters.addWaiter('Lerato');
         await waiters.addWaiter('Mabhozeni');
         await waiters.addWaiter('Mpho');
@@ -81,7 +81,7 @@ describe('WAITERS APP' , async function(){
         assert.equal(waitersList.length, 3);
     });
 
-    it('should be able to get all the waiters', async function(){
+    it('should be able to get all the waiters', async function () {
         await waiters.addWaiter('lerato');
         await waiters.addWaiter('mabhozeni');
         await waiters.addWaiter('mpho');
@@ -89,8 +89,17 @@ describe('WAITERS APP' , async function(){
         const waitersList = await waiters.getAllWaiters();
         assert.deepEqual(waitersList, ['LERATO', 'MABHOZENI', 'MPHO']);
     });
+    it('should be able to get the days that a Lerato is working', async function () {
+        await waiters.addWaiter('lerato');
+        const waiter = await waiters.getWaiter('LERATO');
+        const waiterId = waiter.id;
+        const leratoDays = ['monday', 'tuesday', 'wednesday'];
+        await waiters.addDays(waiterId, leratoDays);
+        const days = await waiters.getDays(waiterId);
+        assert.deepEqual(days, leratoDays);
+    });
 
-    after(async function(){
+    after(async function () {
         await db.manyOrNone('Truncate theSchedule');
         pgp.end();
     });

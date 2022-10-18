@@ -6,186 +6,205 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
-    <link rel="stylesheet" href="/css/tailwind.css" />
-    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
+    <link rel="stylesheet" href="/css/tailwind.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css"/>
     <link href="https://unpkg.com/intro.js/minified/introjs.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
-        <div class="container flex flex-wrap justify-between items-center mx-auto w-screen">
-            <a href="/" class="flex items-center">
-                <img src="/thelogo.png" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
-                <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"
-                    data-hint=" Click Me To Navigate To Home/Login Page" data-hint-position="top-middle">THE BOSS
+<nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
+    <div class="container flex flex-wrap justify-between items-center mx-auto w-screen">
+        <a href="/" class="flex items-center">
+            <img src="/thelogo.png" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo"/>
+            <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"
+                  data-hint=" Click Me To Navigate To Home/Login Page" data-hint-position="top-middle">THE BOSS
                     EAT</span>
-            </a>
-            <button data-collapse-toggle="navbar-default" type="button"
+        </a>
+        <button data-collapse-toggle="navbar-default" type="button"
                 class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                 aria-controls="navbar-default" aria-expanded="false">
-                <span class="sr-only">Open main menu</span>
-                <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd"
-                        d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                        clip-rule="evenodd"></path>
-                </svg>
-            </button>
-            <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-                <ul
+            <span class="sr-only">Open main menu</span>
+            <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                      d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                      clip-rule="evenodd"></path>
+            </svg>
+        </button>
+        <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+            <ul
                     class="flex flex-col p-4 mt-4 bg-gray-50 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                    <li>
-                        <a href="/"
-                            class="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
-                            aria-current="page">Home</a>
-                    </li>
-                    <li>
-                        <a href="/about"
-                            class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</a>
-                    </li>
-                    <li>
-                        <a href="/adminLogin"
-                            class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Admin
-                            Login</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <div class="container mx-auto">
-        <!-- reset button -->
-        <div class="container flex flex-row justify-end mb-2 mt-5">
-            <a href="/reset">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" id="reset"
-                    type="button" data-step="4" data-title="RESET BUTTON"
-                    data-intro="This Is The Reset Button . Press It To Reset The Table">Reset</button>
-            </a>
-        </div>
-        <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400" data-step="1"
-                data-title="WAITERS AVAILABILITY TABLE"
-                data-intro="This Is Where You Can See Your Waiters And The Days They Are Working">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                        <th class="px-4 py-3 text-2xl font-babas" data-step="2" data-title="NAME"
-                            data-intro="This Is Where You See Your Waiters">Name</th>
-                        <div data-step="3" data-title="DAYS"
-                            data-hint="This Is Where You Can See Which Waiters Are Assigned To Which Days"
-                            data-hint-position="top-middle">
-                            <th scope="col" class="py-3 px-6" style="background-color:{{MondayColor}}">
-                                Monday
-                            </th>
-                            <th scope="col" class="py-3 px-6" style="background-color:{{TuesdayColor}}">
-                                Tuesday
-                            </th>
-                            <th scope="col" class="py-3 px-6" style="background-color:{{WednesdayColor}}">
-                                Wednesday
-                            </th>
-                            <th scope="col" class="py-3 px-6" style="background-color:{{ThursdayColor}}">
-                                Thursday
-                            </th>
-                            <th scope="col" class="py-3 px-6" style="background-color:{{FridayColor}}">
-                                Friday
-                            </th>
-                            <th scope="col" class="py-3 px-6" style="background-color:{{SaturdayColor}}">
-                                Saturday
-                            </th>
-                            <th scope="col" class="py-3 px-6" style="background-color:{{SundayColor}}">
-                                Sunday
-                            </th>
-                        </div>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-
-                    {{#each waiterList3}}
-                    <tr>
-                        <!-- td with checkbox and name -->
-                        <td class="px-4 py-3">
-                            <div class="flex items-center">
-                                <div class="flex items-center gap-x-1">
-                                    <!-- checkbox -->
-                                    <!-- <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="checkbox" name="checkbox" value="checkbox">
-                            <div class="text-sm"> -->
-                                    <a href="/waiters/{{this.waiterName}}" class="underline hover:text-black" <div
-                                        class="font-medium text-gray-900 dark:text-gray-100 "
-                                        data-hint="Click On Name To Update The Waiters Days"
-                                        data-hint-position="left">{{this.waiterName}}
-                                </div>
-                                </a>
-                            </div>
+                <li>
+                    <a href="/"
+                       class="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
+                       aria-current="page">Home</a>
+                </li>
+                <li>
+                    <a href="/about"
+                       class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</a>
+                </li>
+                <li>
+                    <a href="/adminLogin"
+                       class="block py-2 pr-4 pl-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Admin
+                        Login</a>
+                </li>
+            </ul>
         </div>
     </div>
-    </td>
-    <td class="py-3 px-6">
-        <div class="flex items-center gap-x-1">
-            <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="checkbox" name="checkbox"
-                value="monday" {{this.MondayChecked}}>
+</nav>
+<div class="container mx-auto">
+    <!-- reset button -->
+    <div class="container flex flex-row justify-end mb-2 mt-5">
+        <a href="/reset">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" id="reset"
+                    type="button" data-step="4" data-title="RESET BUTTON"
+                    data-intro="This Is The Reset Button . Press It To Reset The Table">Reset
+            </button>
+        </a>
+        <a href="/adminLogout">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2" id="logout"
+                    type="button" data-step="5" data-title="LOGOUT BUTTON"
+                    data-intro="This Is The Logout Button . Press It To Logout">Logout
+            </button>
+        </a>
+    </div>
+<div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400" data-step="1"
+       data-title="WAITERS AVAILABILITY TABLE"
+       data-intro="This Is Where You Can See Your Waiters And The Days They Are Working">
+    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <tr>
+        <th class="px-4 py-3 text-2xl font-babas" data-step="2" data-title="NAME"
+            data-intro="This Is Where You See Your Waiters">Name
+        </th>
+        <div data-step="3" data-title="DAYS"
+             data-hint="This Is Where You Can See Which Waiters Are Assigned To Which Days"
+             data-hint-position="top-middle">
+            <th scope="col" class="py-3 px-6" style="background-color:{{MondayColor}}">
+                Monday
+            </th>
+            <th scope="col" class="py-3 px-6" style="background-color:{{TuesdayColor}}">
+                Tuesday
+            </th>
+            <th scope="col" class="py-3 px-6" style="background-color:{{WednesdayColor}}">
+                Wednesday
+            </th>
+            <th scope="col" class="py-3 px-6" style="background-color:{{ThursdayColor}}">
+                Thursday
+            </th>
+            <th scope="col" class="py-3 px-6" style="background-color:{{FridayColor}}">
+                Friday
+            </th>
+            <th scope="col" class="py-3 px-6" style="background-color:{{SaturdayColor}}">
+                Saturday
+            </th>
+            <th scope="col" class="py-3 px-6" style="background-color:{{SundayColor}}">
+                Sunday
+            </th>
         </div>
-    </td>
-    <td class="py-3 px-6">
-        <div class="flex items-center gap-x-1">
-            <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="checkbox" name="checkbox"
-                value="tuesday" {{this.TuesdayChecked}}>
-        </div>
-    </td>
-    <td class="py-3 px-6">
-        <div class="flex items-center gap-x-1">
-            <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="checkbox" name="checkbox"
-                value="wednesday" {{this.WednesdayChecked}}>
-        </div>
-    </td>
-    <td class="py-3 px-6">
-        <div class="flex items-center gap-x-1">
-            <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="checkbox" name="checkbox"
-                value="thursday" {{this.ThursdayChecked}}>
-        </div>
-    </td>
-    <td class="py-3 px-6">
-        <div class="flex items-center gap-x-1">
-            <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="checkbox" name="checkbox"
-                value="friday" {{this.FridayChecked}}>
-        </div>
-    </td>
-    <td class="py-3 px-6">
-        <div class="flex items-center gap-x-1">
-            <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="checkbox" name="checkbox"
-                value="saturday" {{this.SaturdayChecked}}>
-        </div>
-    </td>
-    <td class="py-3 px-6">
-        <div class="flex items-center gap-x-1">
-            <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="checkbox" name="checkbox"
-                value="sunday" {{this.SundayChecked}}>
-        </div>
-    </td>
     </tr>
+    </thead>
+<tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+<form action="/admin" method="post">
+    {{#each waiterList3}}
+        <tr>
+            <!-- td with checkbox and name -->
+            <td class="px-4 py-3">
+                <div class="flex items-center">
+                    <div class="flex items-center gap-x-1">
+                        <!-- checkbox -->
+                        <!-- <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="checkbox" name="checkbox" value="checkbox">
+                <div class="text-sm"> -->
+                        <a href="/waiters/{{this.waiterName}}" class="underline hover:text-black"
+                        <div
+                                class="font-medium text-gray-900 dark:text-gray-100 "
+                                data-hint="Click On Name To Update The Waiters Days"
+                                data-hint-position="left" name="waitername">{{this.waiterName}}
+                        </div>
+                        </a>
+                    </div>
+                </div>
+    </div>
+        </td>
+
+        <td class="py-3 px-6">
+            <div class="flex items-center gap-x-1 ">
+                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="checkbox" name="checkbox"
+                       value="monday" {{this.MondayChecked}}>
+            </div>
+        </td>
+        <td class="py-3 px-6">
+            <div class="flex items-center gap-x-1">
+                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="checkbox" name="checkbox"
+                       value="tuesday" {{this.TuesdayChecked}}>
+            </div>
+        </td>
+        <td class="py-3 px-6">
+            <div class="flex items-center gap-x-1">
+                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="checkbox" name="checkbox"
+                       value="wednesday" {{this.WednesdayChecked}}>
+            </div>
+        </td>
+        <td class="py-3 px-6">
+            <div class="flex items-center gap-x-1">
+                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="checkbox" name="checkbox"
+                       value="thursday" {{this.ThursdayChecked}}>
+            </div>
+        </td>
+        <td class="py-3 px-6">
+            <div class="flex items-center gap-x-1">
+                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="checkbox" name="checkbox"
+                       value="friday" {{this.FridayChecked}}>
+            </div>
+        </td>
+        <td class="py-3 px-6">
+            <div class="flex items-center gap-x-1">
+                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="checkbox" name="checkbox"
+                       value="saturday" {{this.SaturdayChecked}}>
+            </div>
+        </td>
+        <td class="py-3 px-6">
+            <div class="flex items-center gap-x-1">
+                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="checkbox" name="checkbox"
+                       value="sunday" {{this.SundayChecked}}>
+            </div>
+        </td>
+        </tr>
     {{/each}}
+    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            data-step="4" data-title="UPDATE BUTTON"
+            data-intro="This Is The Update Button . Press It To Update The Waiters Days">Update
+    </button>
+    </form>
     </tbody>
     </table>
-    </div>
-    <!-- !key -->
-    <div class="w-full h-12 flex fex-row justify-end mt-3">
-        <!-- key for enough waiters  -->
-        <div class="flex flex-col w-48 h-12 gap-y-3 phone:pl-3" data-step="3" data-title="KEY"
-            data-intro="This Is My Key">
-            <div class="flex flex-row items-baseline gap-x-3">
-                <div class="h-4 w-4 bg-orange-400 rounded-full"></div>
-                <div class="h-5 text-xl">Enough Waiters</div>
-            </div>
-            <div class="flex flex-row items-baseline gap-x-3">
-                <div class="h-4 w-4 bg-red-600 rounded-full"></div>
-                <div class="h-5 text-xl">Overbooked</div>
-            </div>
+</div>
+<!-- !key -->
+<div class="w-full h-12 flex fex-row justify-end mt-3">
+    <!-- key for enough waiters  -->
+    <div class="flex flex-col w-48 h-12 gap-y-3 phone:pl-3" data-step="3" data-title="KEY"
+         data-intro="This Is My Key">
+        <div class="flex flex-row items-baseline gap-x-3">
+            <div class="h-4 w-4 bg-orange-400 rounded-full"></div>
+            <div class="h-5 text-xl">Enough Waiters</div>
+        </div>
+        <div class="flex flex-row items-baseline gap-x-3">
+            <div class="h-4 w-4 bg-red-600 rounded-full"></div>
+            <div class="h-5 text-xl">Overbooked</div>
+        </div>
+        <div class="flex flex-row items-baseline gap-x-3">
+            <div class="h-4 w-4 bg-green-400 rounded-full"></div>
+            <div class="h-5 text-xl">Not Enough Waiters</div>
         </div>
     </div>
-    </div>
-    </div>
-    </div>
-    <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
-    <script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
-     <script>
-         introJs().setOptions({
+</div>
+</div>
+</div>
+</div>
+<script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
+<script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
+<script>
+    introJs().setOptions({
         showProgress: true,
         showBullets: false,
         showStepNumbers: false,
@@ -195,23 +214,23 @@
         tooltipClass: 'customTooltip',
         exitOnOverlayClick: false,
         disableInteraction: true,
-        exitOnEsc: false, 
-         }).start();
-         introJs().addHints();
-         introJs().setOption("dontShowAgain", true).start();
-      </script>
-            <style>
-              .customTooltip * {
-                color: #4a4a4a;
-                font-size: 18px;
-              }
-      
-             .customTooltip .introjs-tooltip-title {
-                color: red;
-                font-size: 20px;
-                font-weight: bold;
-              }
-            </style>
+        exitOnEsc: false,
+    }).start();
+    introJs().addHints();
+    introJs().setOption("dontShowAgain", true).start();
+</script>
+<style>
+    .customTooltip * {
+        color: #4a4a4a;
+        font-size: 18px;
+    }
+
+    .customTooltip .introjs-tooltip-title {
+        color: red;
+        font-size: 20px;
+        font-weight: bold;
+    }
+</style>
 </body>
 
 </html>

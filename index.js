@@ -4,10 +4,12 @@ import exphbs from "express-handlebars";
 import waiterAvailability from "./waiters.js";
 import flash from "express-flash";
 import session from "express-session";
-// import psqlStore from "connect-pg-simple";
-// const pgSession = psqlStore(session);
+import psqlStore from "connect-pg-simple";
 import pgPromise from 'pg-promise';
 import waiterRouter from "./routes/routes.js";
+
+const sessionStore = psqlStore(session);
+
 const app = express();
 const pgp = pgPromise({});
 
@@ -15,10 +17,10 @@ const pgp = pgPromise({});
 const connectionString = process.env.DATABASE_URL || 'postgresql://codex:pg123@localhost:5432/waiters';
 
 const config = {
-    connectionString    
+    connectionString
 }
 
-if(process.env.NODE_ENV == "production"){
+if (process.env["NODE_ENV"] === "production") {
     config.ssl = {
         rejectUnauthorized: false
     }
@@ -31,19 +33,22 @@ const Routers = waiterRouter(waiters, db);
 app.use(session({
     secret: "admin",
     resave: false,
-    saveUninitialized: false,
-    // store: new pgSession({
-    // })
+    saveUninitialized: true,
+    cookie: {
+        sameSite: "strict"
+    }
 }));
 
-function isAuth(req, res, next){
-    if(req.session.admin){
-        next();
-    }else{
-        res.redirect("/login");
-    }
-}
 app.use(flash());
+app.use(function (req, res, next) {
+    if (req.path === "/admin" && !req.session.isAuth) {
+        res.redirect("/adminLogin");
+    }
+    if (req.path === "/adminLogin" && req.session.isAuth && req.session.admin) {
+        res.redirect("/admin");
+    }
+    next();
+})
 
 app.engine("handlebars", exphbs.engine({
     defaultLayout: "main"
@@ -58,9 +63,10 @@ app.use(express.static("public"));
 
 app.get('/', Routers.defaultRoute);
 
-app.post('/waiters',Routers.addWaiter);
-app.get('/waiters/:name',Routers.getWaiter);
-app.post('/waiters/:name',Routers.postWaiter);
+app.post('/waiters', Routers.addWaiter);
+app.get('/waiters/:name', Routers.getWaiter);
+app.get('/waiterPage', Routers.waiterPage);
+app.post('/waiters/:name', Routers.postWaiter);
 // !reset
 app.get('/reset', Routers.theReset);
 app.post('/resetDays', Routers.resetIndividual);
@@ -72,10 +78,11 @@ app.get('/adminSignup', Routers.adminSignup);
 app.post('/adminSignup', Routers.adminSignupPost);
 // !admin dashboard
 app.get('/admin', Routers.theAdmin);
+app.post('/admin', Routers.adminPost);
 // !admin logout
 app.get('/adminLogout', Routers.adminLogout);
-// !about
-app.get('/about', async function(req, res){
+// !admin delete
+app.get('/about', async function (req, res) {
     res.render('about');
 });
 app.listen(process.env.PORT || 3_666, () => {
