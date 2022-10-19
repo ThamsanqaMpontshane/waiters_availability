@@ -11,27 +11,43 @@ const theWaiters = (waiters, db) => {
     }
 
     async function addWaiter(req, res) {
-        console.log(req.body)
         const {name} = req.body;
-        const getWaiterAll = await waiters.getWaiter(name);
-        if (name === "") {
-            req.flash('error', 'Please enter your name');
-            res.redirect('/waiterPage');
-        }
         const regex = /^[a-zA-Z]+$/;
-        if (regex.test(name) === false) {
-            req.flash('error', 'Please enter a valid name');
-            res.redirect('/waiterPage');
-        }
-        //else if name is not in the database
-        else if (getWaiterAll.length === 0) {
-            req.flash('error', 'Please sign up');
-            res.redirect('/waiterPage');
-        } else {
-            await waiters.addWaiter(name);
-            const waiter = await waiters.getWaiter(name);
-            const user = waiter.name;
-            res.redirect(`/waiters/${user}`);
+        const button = req.body.button;
+        const getTheWaiter = await waiters.getWaiter(name);
+        // console.log(getTheWaiter.length);
+        if (button === 'login') {
+            if (name === "") {
+                req.flash('error', 'Please enter your name');
+                res.redirect('/waiterPage');
+            } else if (regex.test(name) === false) {
+                req.flash('error', 'Please enter a valid name');
+                res.redirect('/waiterPage');
+            } else if (getTheWaiter === null) {
+                req.flash('error', 'Please sign up');
+                res.redirect('/waiterPage');
+            } else {
+                await waiters.addWaiter(name);
+                const waiter = await waiters.getWaiter(name);
+                const user = waiter.name;
+                res.redirect(`/waiters/${user}`);
+            }
+        } else if (button === 'signup') {
+            if (name === "") {
+                req.flash('error', 'Please enter your name');
+                res.redirect('/waiterPage');
+            } else if (regex.test(name) === false) {
+                req.flash('error', 'Please enter a valid name');
+                res.redirect('/waiterPage');
+            } else if (getTheWaiter === null) {
+                await waiters.addWaiter(name);
+                const waiter = await waiters.getWaiter(name);
+                const user = waiter.name;
+                res.redirect(`/waiters/${user}`);
+            } else {
+                req.flash('error', 'Please login');
+                res.redirect('/waiterPage');
+            }
         }
     }
 
@@ -61,7 +77,7 @@ const theWaiters = (waiters, db) => {
 
     async function postWaiter(req, res) {
         const userName = req.params.name;
-        let {days} = req.body;
+        const {days} = req.body;
         if (typeof days === "string") {
             days = [days];
         }
@@ -69,16 +85,16 @@ const theWaiters = (waiters, db) => {
         const waiterId = getTheWaiter.id;
         const getIndividual = await waiters.getIndividualWaiterDays(waiterId);
         // loop through the days
-        for (let i = 0; i < days.length; i++) {
-            const day = days[i];
-            console.log("day", day)
-            const dayId = await db.oneOrNone('select id from theDays where name = $1', [day]);
-            const dayIdValue = dayId.id;
-            const checkDay = await db.manyOrNone('select * from theSchedule where waiter_id = $1 and day_id = $2', [waiterId, dayIdValue]);
-            console.log(checkDay);
-            if (checkDay.length === 0) {
-                const getId = dayId.id;
-                await waiters.addWaiterAvailability(waiterId, getId);
+        if (days.length > 0) {
+            for (let i = 0; i < days.length; i++) {
+                const day = days[i];
+                const dayId = await db.oneOrNone('select id from theDays where name = $1', [day]);
+                const dayIdValue = dayId.id;
+                const checkDay = await db.manyOrNone('select * from theSchedule where waiter_id = $1 and day_id = $2', [waiterId, dayIdValue]);
+                if (checkDay.length === 0) {
+                    const getId = dayId.id;
+                    await waiters.addWaiterAvailability(waiterId, getId);
+                }
             }
         }
         //  if days dos not include any day in the getIndividual array then delete the day from theSchedule table
@@ -87,7 +103,7 @@ const theWaiters = (waiters, db) => {
             if (!days.includes(day)) {
                 const dayId = await db.oneOrNone('select id from theDays where name = $1', [day]);
                 const thedayId = dayId.id;
-                await db.none('delete from theSchedule where waiter_id = $1 and day_id = $2', [waiterId,]);
+                await db.none('delete from theSchedule where waiter_id = $1 and day_id = $2', [waiterId, thedayId]);
             }
         }
         req.flash('error', 'Working days updated successfully');
@@ -233,6 +249,29 @@ const theWaiters = (waiters, db) => {
                 }
                 if (i === 6) {
                     SundayColor.push('orange');
+                }
+            }
+            if (day < 3) {
+                if (i === 0) {
+                    MondayColor.push('green');
+                }
+                if (i === 1) {
+                    TuesdayColor.push('green');
+                }
+                if (i === 2) {
+                    WednesdayColor.push('green');
+                }
+                if (i === 3) {
+                    ThursdayColor.push('green');
+                }
+                if (i === 4) {
+                    FridayColor.push('green');
+                }
+                if (i === 5) {
+                    SaturdayColor.push('green');
+                }
+                if (i === 6) {
+                    SundayColor.push('green');
                 }
             }
         }
