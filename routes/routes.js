@@ -7,7 +7,7 @@ const theWaiters = (waiters, db) => {
     }
 
     async function waiterPage(req, res) {
-        res.render('waiterPage');
+        res.render('waiterPages');
     }
 
     async function addWaiter(req, res) {
@@ -33,6 +33,7 @@ const theWaiters = (waiters, db) => {
                 res.redirect(`/waiters/${user}`);
             }
         } else if (button === 'signup') {
+            tail
             if (name === "") {
                 req.flash('error', 'Please enter your name');
                 res.redirect('/waiterPage');

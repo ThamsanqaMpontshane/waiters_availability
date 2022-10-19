@@ -69,7 +69,7 @@ app.get('/', Routers.defaultRoute);
 
 app.post('/waiters', Routers.addWaiter);
 app.get('/waiters/:name', Routers.getWaiter);
-app.get('/waiterPage', Routers.waiterPage);
+app.get('/waiterPages', Routers.waiterPage);
 app.post('/waiters/:name', Routers.postWaiter);
 // !reset
 app.get('/reset', Routers.theReset);
