@@ -8,7 +8,10 @@ import psqlStore from "connect-pg-simple";
 import pgPromise from 'pg-promise';
 import waiterRouter from "./routes/routes.js";
 
-const sessionStore = psqlStore(session);
+import {dirname, join} from 'path';
+import {fileURLToPath} from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 const pgp = pgPromise({});
@@ -53,6 +56,7 @@ app.use(function (req, res, next) {
 app.engine("handlebars", exphbs.engine({
     defaultLayout: "main"
 }));
+app.set('views', join(__dirname, 'views'));
 app.set("view engine", "handlebars");
 
 app.use(bodyParser.json());
@@ -87,4 +91,5 @@ app.get('/about', async function (req, res) {
 });
 app.listen(process.env.PORT || 3_666, () => {
     console.log("Server is running on port 3_666");
-});
+})
+//heroku logs --tail
