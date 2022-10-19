@@ -129,7 +129,7 @@ const theWaiters = (waiters, db) => {
             const theWaiter = await waiters.getWaiter(waiter);
             // console.log(theWaiter);
             const waiterId = theWaiter.id;
-            // console.log(waiterId);
+            console.log(waiterId);
             const getIndividual = await waiters.getIndividualWaiterDays(waiterId);
             const MondayChecked = getIndividual.includes('monday') ? 'checked' : 'unchecked';
             const TuesdayChecked = getIndividual.includes('tuesday') ? 'checked' : 'unchecked';
