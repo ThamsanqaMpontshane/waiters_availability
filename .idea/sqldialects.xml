@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/ec8446b5-0181-4117-a6f8-8ac0f1c2b31a/console.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/mydata.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/waiters.js" dialect="GenericSQL" />
+    <file url="PROJECT" dialect="PostgreSQL" />
+  </component>
+</project>

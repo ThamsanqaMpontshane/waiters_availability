@@ -19,13 +19,13 @@ const theWaiters = (waiters, db) => {
         if (button === 'login') {
             if (name === "") {
                 req.flash('error', 'Please enter your name');
-                res.redirect('/waiterPage');
+                res.redirect('/waiterPages');
             } else if (regex.test(name) === false) {
                 req.flash('error', 'Please enter a valid name');
-                res.redirect('/waiterPage');
+                res.redirect('/waiterPages');
             } else if (getTheWaiter === null) {
                 req.flash('error', 'Please sign up');
-                res.redirect('/waiterPage');
+                res.redirect('/waiterPages');
             } else {
                 await waiters.addWaiter(name);
                 const waiter = await waiters.getWaiter(name);
@@ -36,10 +36,10 @@ const theWaiters = (waiters, db) => {
             tail
             if (name === "") {
                 req.flash('error', 'Please enter your name');
-                res.redirect('/waiterPage');
+                res.redirect('/waiterPages');
             } else if (regex.test(name) === false) {
                 req.flash('error', 'Please enter a valid name');
-                res.redirect('/waiterPage');
+                res.redirect('/waiterPages');
             } else if (getTheWaiter === null) {
                 await waiters.addWaiter(name);
                 const waiter = await waiters.getWaiter(name);
@@ -47,7 +47,7 @@ const theWaiters = (waiters, db) => {
                 res.redirect(`/waiters/${user}`);
             } else {
                 req.flash('error', 'Please login');
-                res.redirect('/waiterPage');
+                res.redirect('/waiterPages');
             }
         }
     }
