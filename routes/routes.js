@@ -33,7 +33,6 @@ const theWaiters = (waiters, db) => {
                 res.redirect(`/waiters/${user}`);
             }
         } else if (button === 'signup') {
-            tail
             if (name === "") {
                 req.flash('error', 'Please enter your name');
                 res.redirect('/waiterPages');
