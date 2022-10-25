@@ -62,10 +62,10 @@
     <form class="bg-white mt-48 tablet:w-5/6 tablet:mt-80 phone:w-80 phone:mt-44" action="/waiters" method="post"
           data-title="HELLO USER" data-intro="This Is A Login Form" data-position="left">
         <div class="flex items-center border-b border-red-800 py-2 gap-x-1 phone:">
-            <input class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+            <input class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none myinput"
                    type="text" placeholder="Enter Your Name" aria-label="Full name" name="name" required
                    autocomplete="off" data-title="TEXT-BOX" data-intro="This Is Where You Can Enter A Waiters Name"
-                   data-position="top-left">
+                   data-position="top-left" value="{{messages.user}}">
             <button name="button" value="signup"
                     class="flex-shrink-0 bg-red-700 hover:bg-gray-500 border-red-700 hover:border-gray-500 text-sm border-4 text-white py-1 px-2 rounded"
                     type="submit">
@@ -79,11 +79,19 @@
         </div>
     </form>
     <!-- error message -->
-    <div class="text-red-500 text-center mt-2 font-bold">
-        {{#if messages.error}}
-            <p class="error">{{messages.error}}</p>
-        {{/if}}
-    </div>
+    {{#if messages.error}}
+        <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800 error mt-4"
+             role="alert">
+            <span class="font-medium">{{messages.error}}</span>
+        </div>
+    {{/if}}
+    <!-- success message -->
+    {{#if messages.success}}
+        <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800 success mt-4"
+             role="alert">
+            <span class="font-medium">{{messages.success}}</span>
+        </div>
+    {{/if}}
     <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 laptop:mt-10 phone:mt-16 tablet:mt-10"
          role="alert">
         <p class="font-bold">Note</p>
@@ -91,7 +99,7 @@
     </div>
 </div>
 <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
-<script src="setTimeout.js"></script>
+<script src="/setTimeout.js"></script>
 <!--<script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>-->
 <!--<script>-->
 <!--    introJs().setOptions({-->

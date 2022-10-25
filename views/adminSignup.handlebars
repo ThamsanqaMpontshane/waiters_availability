@@ -59,14 +59,10 @@
                 class="laptop:text-7xl phone:text-4xl tablet:text-7xl text-gray-400 text-center my-3 font-graduate tracking-wider phone:tracking-tight ">
             Admin Signup</h1>
         {{#if messages.error}}
-            <p class="text-red-500 text-center text-xs error">
-                {{messages.error}}
-            </p>
-        {{/if}}
-        {{#if messages.pass}}
-            <p class="text-red-500 text-center text-xs pass">
-                {{messages.pass}}
-            </p>
+            <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800 error"
+                 role="alert">
+                <span class="font-medium">{{messages.error}}</span>
+            </div>
         {{/if}}
 
         <div class="w-full max-w-md">
@@ -96,6 +92,7 @@
         </a>
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
 <script src="/setTimeout.js"></script>
 </body>
 
