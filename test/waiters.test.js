@@ -24,6 +24,7 @@ const waiters = waiterAvailability(db);
 describe("WAITERS APP", async function () {
   beforeEach(async function () {
     await db.manyOrNone("delete from theSchedule");
+    4;
     await db.manyOrNone("delete from waiter");
   });
 

@@ -23,7 +23,7 @@ const config = {
   connectionString,
 };
 
-if (process.env.NODE_ENV == "production") {
+if (process.env.NODE_ENV === "production") {
   config.ssl = {
     rejectUnauthorized: false,
   };
@@ -97,7 +97,7 @@ app.get("/about", async function (req, res) {
   res.render("about");
 });
 
-app.post("/delete/:name", Routers.theDeleteWaiter);
+app.post("/delete", Routers.theDeleteWaiter);
 app.listen(process.env.PORT || 3_666, () => {
   console.log("Server is running on port 3_666");
 });

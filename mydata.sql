@@ -24,7 +24,7 @@ create table myAdmins
 );
 
 
-INSERT INTO theDays (name)
+INSERT INTO theDays (dayName)
 VALUES ('monday');
 INSERT INTO theDays (name)
 VALUES ('tuesday');

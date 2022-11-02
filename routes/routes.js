@@ -26,7 +26,7 @@ const theWaiters = (waiters, db) => {
         //completed
         res.redirect("/waiterPages");
       } else if (getTheWaiter === null) {
-        req.flash("error", "Pleas</button>e sign up");
+        req.flash("error", "Please sign up");
         //still busy with this
         res.redirect("/waiterPages");
       } else {
@@ -63,7 +63,6 @@ const theWaiters = (waiters, db) => {
     const userName = req.params.name;
     const waiter = await waiters.getWaiter(userName);
     const getIndividual = await waiters.getIndividualWaiterDays(waiter.id);
-    //[{
     const Monday = getIndividual.includes("monday") ? "checked" : "unchecked";
     const Tuesday = getIndividual.includes("tuesday") ? "checked" : "unchecked";
     const Wednesday = getIndividual.includes("wednesday")
@@ -123,7 +122,6 @@ const theWaiters = (waiters, db) => {
       await db.none("delete from theSchedule where waiter_id = $1", [waiterId]);
       for (let i = 0; i < working_days.length; i++) {
         const day = working_days[i];
-        console.log("adding two days");
         const dayId = await db.oneOrNone(
           "select id from theDays where name = $1",
           [day]
@@ -164,6 +162,7 @@ const theWaiters = (waiters, db) => {
       const theWaiter = await waiters.getWaiter(waiter);
       const waiterId = theWaiter.id;
       const getIndividual = await waiters.getIndividualWaiterDays(waiterId);
+      //decrease code repetition
       const MondayChecked = getIndividual.includes("monday")
         ? "checked"
         : "unchecked";
@@ -392,6 +391,7 @@ const theWaiters = (waiters, db) => {
     const upperName = userName.toUpperCase();
     const password = req.body.password;
     const admin = await waiters.getAdmin(upperName);
+    console.log(admin);
     if (admin) {
       if (admin.password === password) {
         req.session.admin = admin;
@@ -442,7 +442,7 @@ const theWaiters = (waiters, db) => {
   }
 
   async function theDeleteWaiter(req, res) {
-    const waiterName = req.params.deleteName;
+    const waiterName = req.body.deleteName;
     console.log(waiterName);
     const getTheWaiter = await waiters.getWaiter(waiterName);
     const waiterId = getTheWaiter.id;
