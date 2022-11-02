@@ -64,7 +64,7 @@
             <div class="flex items-center border-b border-red-800 py-2 gap-x-1 ">
                 <input type="text" name="username" placeholder="Username"
                        class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none pt-7"
-                       type="text" value="{{upperName}}" required autocomplete="off"/>
+                       type="text" value="{{messages.user}}" required autocomplete="off"/>
             </div>
             <div class="flex items-center border-b border-red-800 py-2 gap-x-1 pt-6">
                 <input type="password" name="password" placeholder="Password"
@@ -101,7 +101,7 @@
             <p id="decode">{{messages.pass}}<span
                     class="font-bold pt-1">{{messages.thePass}}</span>{{messages.pass2}}</p>
             <!--                    copy to clipboard icon-->
-            <button class="btn btn-ghost btn-circle copyButton" type="button"
+            <button class="btn btn-ghost btn-circle copyButton hover:bg-gray-200" type="button"
                     data-clipboard-text="{{messages.thePass}}">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                      stroke="currentColor" class="w-8 h-8">

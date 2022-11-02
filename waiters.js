@@ -81,8 +81,6 @@ function waiterAvailability(db) {
   }
 
   async function addDays(waiterId, days) {
-    // ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-    // do not use map
     for (let i = 0; i < days.length; i++) {
       const day = days[i];
       const getDayId = await db.manyOrNone(
