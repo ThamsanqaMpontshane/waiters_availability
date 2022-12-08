@@ -92,9 +92,11 @@ const theWaiters = (waiters, db) => {
   async function postWaiter(req, res) {
     const userName = req.params.name;
     const { days } = req.body;
+    //[monday]
     const getTheWaiter = await waiters.getWaiter(userName);
     const waiterId = getTheWaiter.id;
     const getIndividual = await waiters.getIndividualWaiterDays(waiterId);
+    //[monday, tuesday]
     let working_days = Array.isArray(days) ? days : [days];
     working_days = working_days.filter((item) => item);
     if (working_days.length === 0) {
