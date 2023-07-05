@@ -43,3 +43,5 @@ BADGES
 LICENSE
 -------
 MIT License
+
+![Alt](https://repobeats.axiom.co/api/embed/02b9c71430feae4fc1451ff3dd114a2c861a628a.svg "Repobeats analytics image")
